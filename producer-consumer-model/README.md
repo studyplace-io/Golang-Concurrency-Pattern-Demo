@@ -1,5 +1,5 @@
 ### 生产者-消费者模式介绍：共享一个固定大小的缓冲区(chan)，A goroutine生产数据放入缓冲区，B goroutine从缓冲区中取出数据进行消费。
-
+![](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/blob/main/image/producer-consumer.jpg?raw=true)
 - 一句话概括：
 - 实现方法：
     1. 一对一：
