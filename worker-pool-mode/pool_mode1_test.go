@@ -1,0 +1,136 @@
+package worker_pool_mode
+
+import (
+	"fmt"
+	"runtime"
+	"sync"
+	"testing"
+	"time"
+)
+
+// Task接口，需要实现Execute方法
+type Task interface {
+	Execute()
+}
+
+// Pool 工作池
+type Pool struct {
+	TaskC chan Task 		// 存储任务
+	Wg    sync.WaitGroup
+	size  int				// 任务大小
+}
+
+// NewPool 创建pool池，可以传入并发的数量，默认使用cpu数量
+func NewPool(size ...int) *Pool {
+
+	if size[0] == 0 {
+		size[0] = runtime.NumCPU()
+	}
+
+	p := &Pool{
+		TaskC: make(chan Task, size[0]),
+		Wg: sync.WaitGroup{},
+		size: size[0],
+	}
+
+	return p
+}
+
+// Start 开始
+func (p *Pool) Start() {
+	for i := 0; i < p.size; i++{
+		go func() {
+			for task := range p.TaskC {
+				task.Execute()
+			}
+		}()
+	}
+}
+
+// Stop 停止
+func (p *Pool) Stop() {
+	defer p.Wg.Wait()
+}
+
+func (p *Pool) AddTask(t Task) {
+	p.Wg.Add(1)
+	p.TaskC <- t
+}
+
+type FuncJob func()
+
+func (f FuncJob) Execute() { f() }
+
+func (p *Pool) AddTaskFunc(f FuncJob) {
+	p.Wg.Add(1)
+	p.TaskC <- f
+}
+
+// Task1 任务1
+type Task1 struct {
+	wg  *sync.WaitGroup
+}
+
+func (t *Task1) Execute() {
+	defer t.wg.Done()
+	fmt.Println("Task1 cost 3 seconds")
+	time.Sleep(3 * time.Second)
+	fmt.Println("Task1 finished!")
+}
+
+// Task2 任务2
+type Task2 struct {
+	wg  *sync.WaitGroup
+}
+
+func (t *Task2) Execute() {
+	defer t.wg.Done()
+	fmt.Println("Task2 cost 3 seconds")
+	time.Sleep(3 * time.Second)
+	fmt.Println("Task2 finished!")
+}
+
+// Task3 任务3
+type Task3 struct {
+	wg  *sync.WaitGroup
+}
+
+func (t *Task3) Execute() {
+	defer t.wg.Done()
+	fmt.Println("Task3 cost 3 seconds")
+	time.Sleep(3 * time.Second)
+	fmt.Println("Task3 finished!")
+}
+
+func TestTaskPool(t *testing.T) {
+	p := NewPool(2)
+	p.Start() // 启动任务
+
+	task1 := &Task1{
+		wg: &p.Wg,
+	}
+	task2 := &Task2{
+		wg: &p.Wg,
+	}
+
+	task3 := &Task3{
+		wg: &p.Wg,
+	}
+
+	// 加入任务
+	p.AddTask(task1)
+	p.AddTask(task2)
+	p.AddTask(task3)
+	p.AddTaskFunc(func() {
+		defer p.Wg.Done()
+		fmt.Println("这是一个func!!")
+		time.Sleep(time.Second * 10)
+		fmt.Println("func finished")
+	})
+	p.AddTask(task3)
+
+	// 等待所有任务都执行完成
+	p.Stop()
+
+}
+
