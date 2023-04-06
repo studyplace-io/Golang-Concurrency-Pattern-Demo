@@ -4,9 +4,9 @@
 
 ### 并发模式：
 
-1. 生产者-消费者模型[代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/producer-consumer-model)
+1. 生产者-消费者模型 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/producer-consumer-model)
 
-2. 工作池模式
+2. 工作池模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/worker-pool-mode) 
 
 3. 并发定时任务模式
 
