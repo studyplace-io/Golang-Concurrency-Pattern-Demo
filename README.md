@@ -24,4 +24,4 @@
 
 10. 多并发goroutine退出方式
 
-11. 优雅退出模式 
+11. 优雅退出模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/exit-gracefully-mode)
