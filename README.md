@@ -23,3 +23,5 @@
 9. Error group模式
 
 10. 多并发goroutine退出方式
+
+11. 优雅退出模式 

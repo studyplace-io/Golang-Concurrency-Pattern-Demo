@@ -64,6 +64,13 @@ func MergeProducerWithStop(done chan struct{}) chan int {
 				fmt.Println("通知多个生产者们退出")
 				fmt.Println("MergeProducer自己也退出！")
 				return
+			/*
+				如果在select中执行send操作，则可能会永远被send阻塞。
+				所以，在使用send的时候，应该也使用default语句块，保证send不会被阻塞。
+				如果没有default，或者能确保select不阻塞的语句块，则迟早会被send阻塞。
+			*/
+			//default:
+			//	fmt.Println("waiting")
 			}
 		}
 	}()
