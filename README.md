@@ -20,7 +20,7 @@
 
 8. Futures模式
 
-9. Error group模式
+9. Error group模式 [代码示例]()
 
 10. 多并发goroutine退出方式
 
