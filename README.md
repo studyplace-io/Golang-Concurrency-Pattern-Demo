@@ -20,7 +20,7 @@
 
 8. Futures模式
 
-9. Error group模式 [代码示例]()
+9. Error group模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/error-group-mode)
 
 10. 多并发goroutine退出方式
 
