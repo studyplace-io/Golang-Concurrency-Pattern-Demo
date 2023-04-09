@@ -19,7 +19,6 @@ func main() {
 	// 方式二：
 	SetupSignalHandler(shutdown)
 
-
 }
 
 // exitSignalHandler 接收退出信号
@@ -54,7 +53,6 @@ func exitSignalHandler() {
 		}
 	}
 }
-
 
 // SetupSignalHandler 阻塞接收退出信号，并输入一个shutdownFunc，执行退出前的资源清理动作。
 func SetupSignalHandler(shutdownFunc func(bool)) {
@@ -93,4 +91,3 @@ func shutdown(isGraceful bool) {
 	// 不是syscall.SIGQUIT的退出信号时，做相应退出处理
 
 }
-

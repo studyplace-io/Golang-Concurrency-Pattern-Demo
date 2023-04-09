@@ -16,13 +16,11 @@ import (
 	因为生产者有close兜底了，所以只要确认消费者的退出就好。
 */
 
-
 // 常数
 const (
-	Max = 100000
+	Max        = 100000
 	NumSenders = 10
 )
-
 
 var wgReceivers3 sync.WaitGroup
 
@@ -46,8 +44,6 @@ func ProducerConsumerManyToMany() {
 
 	wgReceivers3.Wait()
 
-
-
 }
 
 func TestProducerConsumerManyToMany(t *testing.T) {
@@ -70,7 +66,7 @@ func ProducerMany(ch chan int, stopC chan struct{}, num int) chan int {
 				return
 			// TODO 这里可以处理生产的业务逻辑
 			// 。。。。。
-			case ch <-rand.Intn(Max):
+			case ch <- rand.Intn(Max):
 
 			}
 		}
@@ -100,4 +96,3 @@ func Consumer(dataC chan int, wgReceivers *sync.WaitGroup, stopC chan struct{}) 
 	}
 
 }
-

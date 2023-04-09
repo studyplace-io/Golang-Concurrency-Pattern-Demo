@@ -15,9 +15,9 @@ type Task interface {
 
 // Pool 工作池
 type Pool struct {
-	TaskC chan Task 		// 存储任务
+	TaskC chan Task // 存储任务
 	Wg    sync.WaitGroup
-	size  int				// 任务大小
+	size  int // 任务大小
 }
 
 // NewPool 创建pool池，可以传入并发的数量，默认使用cpu数量
@@ -29,8 +29,8 @@ func NewPool(size ...int) *Pool {
 
 	p := &Pool{
 		TaskC: make(chan Task, size[0]),
-		Wg: sync.WaitGroup{},
-		size: size[0],
+		Wg:    sync.WaitGroup{},
+		size:  size[0],
 	}
 
 	return p
@@ -38,7 +38,7 @@ func NewPool(size ...int) *Pool {
 
 // Start 开始
 func (p *Pool) Start() {
-	for i := 0; i < p.size; i++{
+	for i := 0; i < p.size; i++ {
 		go func() {
 			for task := range p.TaskC {
 				task.Execute()
@@ -68,7 +68,7 @@ func (p *Pool) AddTaskFunc(f FuncJob) {
 
 // Task1 任务1
 type Task1 struct {
-	wg  *sync.WaitGroup
+	wg *sync.WaitGroup
 }
 
 func (t *Task1) Execute() {
@@ -80,7 +80,7 @@ func (t *Task1) Execute() {
 
 // Task2 任务2
 type Task2 struct {
-	wg  *sync.WaitGroup
+	wg *sync.WaitGroup
 }
 
 func (t *Task2) Execute() {
@@ -92,7 +92,7 @@ func (t *Task2) Execute() {
 
 // Task3 任务3
 type Task3 struct {
-	wg  *sync.WaitGroup
+	wg *sync.WaitGroup
 }
 
 func (t *Task3) Execute() {
@@ -133,4 +133,3 @@ func TestTaskPool(t *testing.T) {
 	p.Stop()
 
 }
-

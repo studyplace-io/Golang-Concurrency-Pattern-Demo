@@ -12,7 +12,7 @@ import (
 	场景：一生产者+一消费者。
 	生产者：启动goroutine生产数据，并放入chan中，返回chan对象
 	消费者：主goroutine 从chan中拿出data处理
- */
+*/
 
 // Producer 实现带有缓冲的生产者，返回一个chan，可从里面取出执行的结果
 func Producer(stopC chan struct{}) chan int {
@@ -24,7 +24,7 @@ func Producer(stopC chan struct{}) chan int {
 			case <-stopC:
 				log.Println("收到退出消息，生产者退出")
 				return
-			case ch <-rand.Int():
+			case ch <- rand.Int():
 
 			}
 		}

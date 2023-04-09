@@ -22,7 +22,7 @@ func Producer1() chan int {
 		for {
 			select {
 
-			case ch <-rand.Int():
+			case ch <- rand.Int():
 				// 执行业务逻辑
 
 			}
@@ -41,7 +41,7 @@ func Producer2() chan int {
 			select {
 			default:
 				// 执行业务逻辑
-				ch <-rand.Int()
+				ch <- rand.Int()
 			}
 		}
 	}()

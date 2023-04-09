@@ -15,7 +15,7 @@ const (
 
 // Obj 需要放入池中的对象
 type Obj struct {
-	Id	   int
+	Id     int
 	Status string
 	// 这里可以加入需要的字段或方法
 }
@@ -30,18 +30,17 @@ func (o Obj) Execute() {
 	o.Status = Running // 转变状态
 }
 
-
 // ObjPool 池
 type ObjPool struct {
-	pool   	   chan *Obj   // 维护一个保存对象的chan
-	poolSize   int		   // pool 大小
-	poolInit   bool        // 标示是否已初始化
+	pool     chan *Obj // 维护一个保存对象的chan
+	poolSize int       // pool 大小
+	poolInit bool      // 标示是否已初始化
 }
 
 // NewObjPool 创建新的pool, 并初始化中的对象
 func NewObjPool(taskNum int, init bool) *ObjPool {
 	taskPool := &ObjPool{
-		pool: make(chan *Obj, taskNum),
+		pool:     make(chan *Obj, taskNum),
 		poolSize: taskNum,
 		poolInit: init,
 	}
@@ -50,7 +49,7 @@ func NewObjPool(taskNum int, init bool) *ObjPool {
 	if taskPool.poolInit {
 		for i := 0; i < taskPool.poolSize; i++ {
 			taskPool.pool <- &Obj{
-				Id: i,
+				Id:     i,
 				Status: NoUSE,
 			}
 		}
@@ -67,13 +66,13 @@ func (t *ObjPool) GetObj(timeout time.Duration) (*Obj, error) {
 	poolInit := func() {
 		for i := 0; i < t.poolSize; i++ {
 			t.pool <- &Obj{
-				Id: i,
+				Id:     i,
 				Status: NoUSE,
 			}
 		}
 	}
 
-	if ! t.poolInit {
+	if !t.poolInit {
 		once.Do(poolInit)
 		t.poolInit = true
 	}
@@ -93,7 +92,7 @@ func (t *ObjPool) PutObj(obj *Obj) error {
 	// FIXME: 这里obj的相关字段都要清洗掉，只留下必要的。
 	obj.Status = NoUSE
 	select {
-	case t.pool <-obj:
+	case t.pool <- obj:
 		return nil
 	default:
 		return errors.New("put obj to pool error, the pool is full")

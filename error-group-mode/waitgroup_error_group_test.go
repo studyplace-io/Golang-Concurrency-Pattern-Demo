@@ -14,7 +14,6 @@ import (
 	将error写入chan，这样主goroutine通过for range去遍历这个chan。
 */
 
-
 func TestErrorPractice(t *testing.T) {
 	num := 10
 	TryUseErrorChan(num)
@@ -26,12 +25,12 @@ type ErrorGroupExecutor struct {
 }
 
 // Execute 执行：如果报错，把错误放入errC中
-func (e *ErrorGroupExecutor) Execute(num int)  {
+func (e *ErrorGroupExecutor) Execute(num int) {
 	defer e.wg.Done()
 
-	if num%2 == 0{
+	if num%2 == 0 {
 		str := "err" + strconv.Itoa(num)
-		e.errC <-errors.New(str)
+		e.errC <- errors.New(str)
 	}
 
 }
@@ -39,7 +38,7 @@ func (e *ErrorGroupExecutor) Execute(num int)  {
 func NewExecutor(errC chan error) *ErrorGroupExecutor {
 	return &ErrorGroupExecutor{
 		errC: errC,
-		wg: sync.WaitGroup{},
+		wg:   sync.WaitGroup{},
 	}
 }
 
@@ -52,8 +51,8 @@ func TryUseErrorChan(num int) {
 		go e.Execute(i)
 	}
 
-	e.wg.Wait()		// 阻塞等待
-	close(e.errC)	// 多生产者，需要关闭chan
+	e.wg.Wait()   // 阻塞等待
+	close(e.errC) // 多生产者，需要关闭chan
 
 	// 消费查看errC
 	for err := range e.errC {
@@ -61,6 +60,5 @@ func TryUseErrorChan(num int) {
 	}
 
 	fmt.Println("主goroutine退出")
-
 
 }

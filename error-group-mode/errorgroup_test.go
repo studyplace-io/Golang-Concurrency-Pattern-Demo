@@ -9,7 +9,6 @@ import (
 	"testing"
 )
 
-
 /*
     errgroup的使用实践。
 
@@ -18,7 +17,6 @@ import (
 	2. 错误传播：能够返回任务组中发生的第一个错误，但有且仅能返回该错误
 	3. context 信号传播：如果子任务 goroutine 中有循环逻辑，则可以添加 ctx.Done 逻辑，此时通过 context 的取消信号，提前结束子任务执行。
 */
-
 
 func TestErrorPractice1(t *testing.T) {
 	//TryUseWaitGroup()
@@ -107,9 +105,9 @@ func ErrGroupUseContext() {
 		defer close(dataChan)
 
 		// 不断增加
-		for i := 1; ;i++ {
+		for i := 1; ; i++ {
 			// 到了特定条件，oupput错误。这时候 errgroup.WithContext
-			if i % 2 == 0 {
+			if i%2 == 0 {
 				return fmt.Errorf("data %v is wrong", i)
 			}
 			// 这里可以执行业务逻辑。
@@ -129,7 +127,7 @@ func ErrGroupUseContext() {
 				// 监听不同chan
 				select {
 				// 当有错误，把错误返回！ 直接退出
-				case <- ctx.Done():
+				case <-ctx.Done():
 					return ctx.Err()
 				// 正常情况，接收到data，执行某些业务逻辑
 				case num := <-dataChan:
