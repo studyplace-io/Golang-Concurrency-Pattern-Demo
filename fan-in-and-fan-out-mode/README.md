@@ -1,6 +1,7 @@
 ### FAN-IN模式介绍：在流水线模式的基础上，加入任务"分发"或是任务"收集"的并发能力。
 
 - 一句话概括：与流水线模式相同，但是在此基础上多加了并发能力。
+![](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/blob/main/image/fan_in_out.jpg?raw=true)
 - 实现方法：
     FAN-IN: 
     1. 并发多个goroutine从chan中获取数据，直到chan关闭。
