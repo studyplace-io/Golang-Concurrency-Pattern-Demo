@@ -1,6 +1,7 @@
 ### 流水线模式介绍：由好几个不同阶段组成(方法)，每个方法input与output都使用"chan"来传递。
 
 - 一句话概括：可以连贯下去的流程(第一步干啥，第二步干啥等)，并当中有数据的参与时使用。
+![](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/blob/main/image/pipeline.jpg?raw=true)
 - 实现方法：
     1. 参与流水线的方法的input与output都使用chan来传递(类似消费者-生产者)。
   
