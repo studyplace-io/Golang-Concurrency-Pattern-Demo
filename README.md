@@ -14,9 +14,9 @@
 
 5. 超时控制模式
 
-6. 流水线模式
+6. 流水线模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/pipeline-mode)
 
-7. 扇出扇入模式
+7. 扇出扇入模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/fan-in-and-fan-out-mode)
 
 8. Futures模式
 
