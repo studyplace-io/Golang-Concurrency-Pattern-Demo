@@ -12,7 +12,7 @@
 
 4. Task-Job模式
 
-5. 超时控制模式
+5. 超时控制模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/timeout-mode)
 
 6. 流水线模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/pipeline-mode)
 
