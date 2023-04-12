@@ -1,5 +1,5 @@
 ### Future模式介绍：当“未来”需要的结果（一般就是一个网络请求的结果），现在就要发起请求或操作时使用的模式。
-
+![](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/blob/main/image/future.jpg?raw=true)
 - 一句话概括：在后台执行一个异步请求，等以后的某个时间要调用时可以拿到。
 - 实现方法：
     1. 在func中启动goroutine且返回chan接口的方式来实现
