@@ -18,7 +18,7 @@
 
 7. 扇出扇入模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/fan-in-and-fan-out-mode)
 
-8. Futures模式
+8. Futures模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/future-mode)
 
 9. Error group模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/error-group-mode)
 
