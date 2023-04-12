@@ -5,7 +5,7 @@
     1. 使用chan+time.After()来控制超时退出
     2. 使用context+time.After()来控制超时退出
     3. waitGroup上加入Wait()超时退出功能
-  
+    4. 超时重试模式
   
 - 适用场景：执行一个操作可能会耗时很久的时候使用。
   
