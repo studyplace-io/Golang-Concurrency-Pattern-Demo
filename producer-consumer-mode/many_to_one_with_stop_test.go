@@ -1,4 +1,4 @@
-package producer_consumer_model
+package producer_consumer_mode
 
 import (
 	"fmt"
