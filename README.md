@@ -10,7 +10,7 @@
 
 3. 并发定时任务模式
 
-4. Task-Job模式
+4. Task-Job模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/task-job-mode)
 
 5. 超时控制模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/timeout-mode)
 
