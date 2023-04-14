@@ -8,7 +8,7 @@
 
 2. 工作池模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/worker-pool-mode) 
 
-3. 并发定时任务模式
+3. 并发定时任务模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/cron-task-mode)
 
 4. Task-Job模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/task-job-mode)
 
