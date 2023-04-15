@@ -50,6 +50,7 @@ func ProducerWithStop2(done chan struct{}) chan int {
 
 }
 
+// MergeProducerWithStop 类似FAN-IN模式
 func MergeProducerWithStop(done chan struct{}) chan int {
 
 	mergeCh := make(chan int, 50)

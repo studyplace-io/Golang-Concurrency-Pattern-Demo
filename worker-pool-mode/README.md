@@ -4,6 +4,7 @@
 - 实现方法：
     1. 创建一对象，并使用Get或Put方法封装，当使用Get方法取出后可以调用obj的execute方法，执行完毕后使用Put方法再次放回。
     2. 实现Task接口，并调用AddTask() 或 AddTaskFunc() 方法加入池中。
+    3. 对WaitGroup进行二次封装，实现"限制并发数"的LimitWaitGroup。
      
 - 适用场景：对于可以提前预知的大量异步处理的任务就要考虑使用工作池。
   
