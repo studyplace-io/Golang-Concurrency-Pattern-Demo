@@ -3,7 +3,8 @@
 - 一句话概括：与流水线模式相同，但是在此基础上多加了并发能力。
 ![](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/blob/main/image/fan_in_out.jpg?raw=true)
 - 实现方法：
-    FAN-OUT: 
+  
+    FAN-OUT:
     1. 并发多个goroutine从chan中获取数据，直到chan关闭。
     
     FAN-IN: 

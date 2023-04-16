@@ -4,7 +4,7 @@
 
 ### 并发模式：
 
-1. 生产者-消费者模型 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/producer-consumer-model)
+1. 生产者-消费者模型 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/producer-consumer-mode)
 
 2. 工作池模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/worker-pool-mode) 
 
@@ -22,6 +22,6 @@
 
 9. Error group模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/error-group-mode)
 
-10. 多并发goroutine退出方式
+10. 其他多并发goroutine方式 [代码示例]()
 
 11. 优雅退出模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/exit-gracefully-mode)

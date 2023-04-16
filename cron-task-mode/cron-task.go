@@ -12,14 +12,14 @@ import (
  */
 
 
-func After(tm timer.Timer, callbackFunc func(), taskNum int) {
+func After(tm timer.Timer, duration time.Duration, callbackFunc func(), taskNum int) {
 	var wg sync.WaitGroup
 	wg.Add(taskNum)
 	for i := 0; i < taskNum; i++ {
 
 		go func() {
 			defer wg.Done()
-			tm.AfterFunc(time.Second, callbackFunc)
+			tm.AfterFunc(duration, callbackFunc)
 		}()
 
 	}
@@ -48,7 +48,7 @@ func CronTask() {
 		log.Printf("after 1 second stopped!!!\n")
 	}
 	// 启动一次性任务
-	go After(tm, aa, 5)
+	go After(tm, time.Second, aa, 5)
 
 
 	bb := func() {
