@@ -22,7 +22,7 @@
 
 9. Error group模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/error-group-mode)
 
-10. 其他多并发goroutine方式 [代码示例]()
+10. 其他多并发goroutine方式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/gorountine-other-mode)
 
 11. 优雅退出模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/exit-gracefully-mode)
 
