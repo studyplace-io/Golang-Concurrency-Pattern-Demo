@@ -6,8 +6,8 @@ import (
 )
 
 type MockPod struct {
-	Name 	   string
-	SelectNode string
+	Name          string
+	SelectNode    string
 	PodRecordNode []_interface.PodRecordNode
 }
 
@@ -21,7 +21,7 @@ func (m *MockPod) SetNode(s string) {
 
 func (m *MockPod) SetPodRecordNode(s string, f float64) {
 	r := _interface.PodRecordNode{
-		Score: f,
+		Score:    f,
 		NodeName: s,
 	}
 	m.PodRecordNode = append(m.PodRecordNode, r)

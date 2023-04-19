@@ -6,7 +6,7 @@ import (
 	"math/rand"
 )
 
-type MockPlugin struct {}
+type MockPlugin struct{}
 
 func (m MockPlugin) Score(task _interface.Pod, infos *nodes.NodeInfo) float64 {
 	return rand.Float64() * 100
@@ -17,5 +17,3 @@ func (m MockPlugin) Filter(task _interface.Pod) bool {
 }
 
 var _ _interface.Plugin = &MockPlugin{}
-
-

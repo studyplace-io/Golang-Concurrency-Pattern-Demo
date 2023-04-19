@@ -8,7 +8,7 @@ type NodeInfos struct {
 
 func NewNodeInfos() *NodeInfos {
 	return &NodeInfos{
-		NodeInfos: make([]*NodeInfo, 0),
+		NodeInfos:   make([]*NodeInfo, 0),
 		NodeInfoNum: 0,
 	}
 }
@@ -23,9 +23,9 @@ type NodeInfo struct {
 
 func NewNodeInfo(name string) *NodeInfo {
 	n := &NodeInfo{
-		NodeName: name,
-		Node: map[string]interface{}{},
-		NodeLen: 0,
+		NodeName:   name,
+		Node:       map[string]interface{}{},
+		NodeLen:    0,
 		NodeLabels: map[string]string{},
 	}
 

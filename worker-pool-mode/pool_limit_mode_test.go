@@ -12,9 +12,9 @@ import (
 // LimitWaitGroup 限制并发数量的WaitGroup
 type LimitWaitGroup struct {
 	// WaitGroup对象
-	Wg   	 sync.WaitGroup
+	Wg sync.WaitGroup
 	// 设置的并发数
-	size 	 int
+	size int
 	// 使用chan的方式限制
 	poolC chan struct{}
 }
@@ -29,8 +29,8 @@ const (
 // NewDefaultLimitWaitGroup 兼容原来的WaitGroup
 func NewDefaultLimitWaitGroup() *LimitWaitGroup {
 	limitWaitGroup := &LimitWaitGroup{
-		Wg: sync.WaitGroup{},
-		size: 0,
+		Wg:    sync.WaitGroup{},
+		size:  0,
 		poolC: make(chan struct{}, 0),
 	}
 
@@ -40,8 +40,8 @@ func NewDefaultLimitWaitGroup() *LimitWaitGroup {
 func NewLimitWaitGroup(opts ...LimitWaitGroupOption) *LimitWaitGroup {
 
 	limitWaitGroup := &LimitWaitGroup{
-		Wg: sync.WaitGroup{},
-		size: defaultSize,
+		Wg:    sync.WaitGroup{},
+		size:  defaultSize,
 		poolC: make(chan struct{}, defaultSize),
 	}
 
@@ -52,7 +52,7 @@ func NewLimitWaitGroup(opts ...LimitWaitGroupOption) *LimitWaitGroup {
 	return limitWaitGroup
 }
 
-func WithSize(size int)LimitWaitGroupOption {
+func WithSize(size int) LimitWaitGroupOption {
 	return func(nl *LimitWaitGroup) {
 		if size > 0 {
 			nl.size = size
@@ -67,7 +67,7 @@ func WithSize(size int)LimitWaitGroupOption {
 // 需要发一个struct{}给chan，相当于占用位置
 func (nl *LimitWaitGroup) BlockAdd() {
 	if nl.size > 0 {
-		nl.poolC<- struct{}{}
+		nl.poolC <- struct{}{}
 	}
 	nl.Wg.Add(1)
 }
@@ -137,7 +137,3 @@ func TestLimitWaitGroup(test *testing.T) {
 
 	fmt.Println("Finished")
 }
-
-
-
-

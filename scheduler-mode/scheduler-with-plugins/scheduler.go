@@ -9,11 +9,11 @@ import (
 
 // Scheduler 调度器
 type Scheduler struct {
-	pods     	  chan _interface.Pod	// pod队列
-	nodeInfos     *nodes.NodeInfos		// 存储所有node的信息
-	workers       int					// 控制并发数
-	plugins       []_interface.Plugin	// 插件
-	wg            sync.WaitGroup
+	pods      chan _interface.Pod // pod队列
+	nodeInfos *nodes.NodeInfos    // 存储所有node的信息
+	workers   int                 // 控制并发数
+	plugins   []_interface.Plugin // 插件
+	wg        sync.WaitGroup
 }
 
 // AddPlugin 加入插件
@@ -23,7 +23,7 @@ func (s *Scheduler) AddPlugin(plugin _interface.Plugin) {
 
 // AddPod 放入pod
 func (s *Scheduler) AddPod(pod _interface.Pod) {
-	s.pods <-pod
+	s.pods <- pod
 }
 
 // run 启动调度器
@@ -43,7 +43,7 @@ func (s *Scheduler) run() {
 				// 打分node
 				t = s.runScorer(t)
 				// 选出最好的node
-				nodeInfo :=  s.selectHost(t)
+				nodeInfo := s.selectHost(t)
 				// 异步绑定
 				go bind(t, nodeInfo)
 
@@ -127,5 +127,3 @@ func (s *Scheduler) podFiltered(pod _interface.Pod) bool {
 	}
 	return false
 }
-
-

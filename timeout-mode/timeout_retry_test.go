@@ -50,8 +50,8 @@ func errorRequest(ctx context.Context) error {
 	var body []byte
 
 	a := http.DefaultClient
-	a.Timeout = time.Second  // 设置超时时间
-	res, err  :=a.Get("https://aaaaa/") 	// 随便写的url
+	a.Timeout = time.Second             // 设置超时时间
+	res, err := a.Get("https://aaaaa/") // 随便写的url
 	if err != nil {
 		return err
 	}

@@ -28,10 +28,9 @@ func TestCron(wg *sync.WaitGroup) {
 	c.Start()
 	time.Sleep(time.Minute * 5)
 
-
 }
 
-func CronTask1()  {
+func CronTask1() {
 
 	var wg sync.WaitGroup
 
@@ -42,9 +41,7 @@ func CronTask1()  {
 	wg.Wait()
 }
 
-
 type Job1 struct {
-
 }
 
 func (j *Job1) Run() {
@@ -52,14 +49,13 @@ func (j *Job1) Run() {
 }
 
 type Job2 struct {
-
 }
 
 func (j *Job2) Run() {
 	fmt.Println(time.Now(), "Job2开始工作")
 }
 
-func TestCron2 (wg *sync.WaitGroup) {
+func TestCron2(wg *sync.WaitGroup) {
 
 	defer wg.Done()
 
@@ -74,8 +70,4 @@ func TestCron2 (wg *sync.WaitGroup) {
 	c.Start()
 	time.Sleep(time.Second * 30)
 
-
 }
-
-
-

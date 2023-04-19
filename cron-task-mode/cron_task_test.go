@@ -9,4 +9,3 @@ func TestCronTask(t *testing.T) {
 func TestCronTask1(t *testing.T) {
 	CronTask1()
 }
-

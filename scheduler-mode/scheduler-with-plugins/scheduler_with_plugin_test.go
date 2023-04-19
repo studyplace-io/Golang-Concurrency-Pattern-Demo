@@ -13,11 +13,11 @@ func TestSchedulerWithPlugin(test *testing.T) {
 
 	// 调度器
 	scheduler := Scheduler{
-		pods: make(chan _interface.Pod, 10),
+		pods:      make(chan _interface.Pod, 10),
 		nodeInfos: nodes.NewNodeInfos(),
-		workers: 8,
-		plugins: make([]_interface.Plugin, 0),
-		wg: sync.WaitGroup{},
+		workers:   8,
+		plugins:   make([]_interface.Plugin, 0),
+		wg:        sync.WaitGroup{},
 	}
 
 	// 加入模拟node
@@ -36,21 +36,21 @@ func TestSchedulerWithPlugin(test *testing.T) {
 	res := make([]*demo.MockPod, 0)
 
 	t1 := &demo.MockPod{
-		Name: "pod1",
+		Name:          "pod1",
 		PodRecordNode: make([]_interface.PodRecordNode, 0),
 	}
 	scheduler.AddPod(t1)
 	res = append(res, t1)
 
 	t2 := &demo.MockPod{
-		Name: "pod1",
+		Name:          "pod1",
 		PodRecordNode: make([]_interface.PodRecordNode, 0),
 	}
 	scheduler.AddPod(t2)
 	res = append(res, t2)
 
 	t3 := &demo.MockPod{
-		Name: "pod1",
+		Name:          "pod1",
 		PodRecordNode: make([]_interface.PodRecordNode, 0),
 	}
 	scheduler.AddPod(t3)

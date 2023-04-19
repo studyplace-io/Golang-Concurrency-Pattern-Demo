@@ -124,8 +124,8 @@ func TestWaitForTasks(t *testing.T) {
 }
 
 const (
-	capacity = 10
-	requestNum  = 100
+	capacity   = 10
+	requestNum = 100
 )
 
 // TestDropMode Drop模式

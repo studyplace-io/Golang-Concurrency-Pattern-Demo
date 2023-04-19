@@ -12,8 +12,8 @@ type Pod interface {
 
 // PodRecordNode 为了记录特定pod在所有node中的打分
 type PodRecordNode struct {
-	NodeName   string
-	Score      float64
+	NodeName string
+	Score    float64
 }
 
 // Plugin 插件接口

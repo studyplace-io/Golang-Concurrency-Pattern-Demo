@@ -51,7 +51,7 @@ func RequestFutureV2(url string) (<-chan []byte, <-chan error) {
 
 		res, err := http.Get(url)
 		if err != nil {
-			errC <-err
+			errC <- err
 			return
 		}
 

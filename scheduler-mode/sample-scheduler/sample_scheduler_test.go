@@ -12,8 +12,8 @@ type task func()
 
 // scheduler 调度器
 type scheduler struct {
-	tasks   chan task	  // 调度队列
-	workers int			  // 并发调度数量
+	tasks   chan task     // 调度队列
+	workers int           // 并发调度数量
 	stopC   chan struct{} // 退出通知
 	wg      sync.WaitGroup
 }
@@ -21,8 +21,8 @@ type scheduler struct {
 func newScheduler(workers int) *scheduler {
 	return &scheduler{
 		workers: workers,
-		tasks: make(chan task, 2),
-		stopC: make(chan struct{}),
+		tasks:   make(chan task, 2),
+		stopC:   make(chan struct{}),
 	}
 }
 
@@ -48,7 +48,7 @@ func (s *scheduler) start() {
 
 // addTask 任务入队
 func (s *scheduler) addTask(t task) {
-	s.tasks <-t
+	s.tasks <- t
 }
 
 // stop 调度器退出
@@ -88,7 +88,5 @@ func TestSampleScheduler(test *testing.T) {
 	s.addTask(func() {
 		fmt.Println("Task 3")
 	})
-
-
 
 }
