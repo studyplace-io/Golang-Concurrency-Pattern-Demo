@@ -7,7 +7,7 @@
   1. server启动需要优雅退出。
   
 ```go
-
+1. 方式一：退出逻辑
 func SetupSignalHandler(shutdownFunc func(bool)) {
 	// 接受os通知的chan
 	closeSignalChan := make(chan os.Signal, 1)
@@ -31,4 +31,20 @@ func SetupSignalHandler(shutdownFunc func(bool)) {
 
 }
 
+2. 方式二：退出逻辑
+// SetupSignalHandler 退出逻辑
+func SetupSignalHandler() (stopCh <-chan struct{}) {
+    close(onlyOneSignalHandler) // panics when called twice
+    stop := make(chan struct{})
+    c := make(chan os.Signal, 2)
+    signal.Notify(c, shutdownSignals...)
+    go func() {
+        <-c
+        close(stop)
+        <-c
+        klog.Info("force shutdown")
+        os.Exit(1) // Exit directly if received second signal
+    }()
+    return stop
+}
 ```
