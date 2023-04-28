@@ -18,7 +18,7 @@ func TestWaitGroupWithoutTimeout(test *testing.T) {
 			fmt.Println(index)
 			// 模拟其中一个任务执行的非常久，所有goroutine都在等
 			if index == 2 {
-				time.Sleep(time.Second * 200)
+				time.Sleep(time.Second * 10)
 			}
 		}(i)
 	}
@@ -45,7 +45,7 @@ func TestWaitGroupWithChan(test *testing.T) {
 			fmt.Println(index)
 			// 模拟某个goroutine 执行非常久的时间
 			if index == 2 {
-				time.Sleep(time.Second * 100)
+				time.Sleep(time.Second * 11)
 			}
 		}(i)
 	}

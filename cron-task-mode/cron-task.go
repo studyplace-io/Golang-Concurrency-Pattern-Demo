@@ -54,7 +54,7 @@ func CronTask() {
 	go Schedule(tm, t, bb)
 
 	go func() {
-		time.Sleep(2*time.Minute + 50*time.Second)
+		time.Sleep(10*time.Second)
 		tm.Stop()
 	}()
 

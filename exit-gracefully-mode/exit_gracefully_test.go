@@ -6,13 +6,13 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+
 	"time"
 )
 
-func main() {
+func Example() {
 
 	// 优雅退出
-
 	// 方式一：
 	exitSignalHandler()
 

@@ -142,7 +142,7 @@ func (tw *TimeWheel) AddTask(interval time.Duration, taskName TaskName, createdT
 }
 
 // RemoveTask 从时间轮盘删除任务的公共函数
-func (tw *TimeWheel) RemoveTask(taskName string) error {
+func (tw *TimeWheel) RemoveTask(taskName TaskName) error {
 	if taskName == "" {
 		return nil
 	}
@@ -249,7 +249,7 @@ func (tw *TimeWheel) addTask(task *Task, byInterval bool) {
 	if byInterval {
 		pos, circle = tw.getPosAndCircleByInterval(task.interval)
 	} else {
-		pos, circle = tw.getPosAndCircleByCreatedTime(task.createdTime, task.interval, task.TaskName)
+		pos, circle = tw.getPosAndCircleByCreatedTime(task.createdTime, task.interval)
 	}
 
 	task.circle = circle

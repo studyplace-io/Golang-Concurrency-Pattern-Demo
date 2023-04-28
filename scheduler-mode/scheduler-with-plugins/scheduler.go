@@ -1,19 +1,68 @@
 package scheduler_with_plugins
 
 import (
-	"fmt"
 	_interface "golanglearning/new_project/Golang-Concurrency-Pattern-Demo/scheduler-mode/scheduler-with-plugins/interface"
 	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/scheduler-mode/scheduler-with-plugins/nodes"
+	"k8s.io/klog/v2"
 	"sync"
 )
 
 // Scheduler 调度器
 type Scheduler struct {
+	options *schedulerOptions // 调度器配置
+	name    string
+
+	queue     *Queue
 	pods      chan _interface.Pod // pod队列
 	nodeInfos *nodes.NodeInfos    // 存储所有node的信息
 	workers   int                 // 控制并发数
 	plugins   []_interface.Plugin // 插件
+
 	wg        sync.WaitGroup
+	stopC  chan struct{} // 通知
+	logger klog.Logger
+}
+
+type schedulerOptions struct {
+	test          string
+	test1         int
+	numWorker     int
+	queueCapacity int
+}
+
+// SchedulerOption 选项模式
+type SchedulerOption func(options *schedulerOptions)
+
+// defaultOptions 默认配置
+var defaultOptions = schedulerOptions{
+	numWorker:     3,
+	queueCapacity: 10,
+	test:          "test",
+	test1:         10,
+}
+
+func WithNumWorker(numWorker int) SchedulerOption {
+	return func(options *schedulerOptions) {
+		options.numWorker = numWorker
+	}
+}
+
+func WithQueueCapacity(queueCapacity int) SchedulerOption {
+	return func(options *schedulerOptions) {
+		options.queueCapacity = queueCapacity
+	}
+}
+
+func WithTest1(test1 int) SchedulerOption {
+	return func(options *schedulerOptions) {
+		options.test1 = test1
+	}
+}
+
+func WithTest(test string) SchedulerOption {
+	return func(options *schedulerOptions) {
+		options.test = test
+	}
 }
 
 // AddPlugin 加入插件
@@ -23,11 +72,12 @@ func (s *Scheduler) AddPlugin(plugin _interface.Plugin) {
 
 // AddPod 放入pod
 func (s *Scheduler) AddPod(pod _interface.Pod) {
-	s.pods <- pod
+	s.queue.activeQ <- pod
 }
 
 // run 启动调度器
 func (s *Scheduler) run() {
+	go s.queue.Run(s.stopC)
 
 	for i := 0; i < s.workers; i++ {
 		s.wg.Add(1)
@@ -36,38 +86,52 @@ func (s *Scheduler) run() {
 			defer s.wg.Done()
 
 			for {
-				// 取出队列中的pod
-				t := <-s.pods
-				// 过滤pod
-				t = s.runFilter(t)
-				// 打分node
-				t = s.runScorer(t)
-				// 选出最好的node
-				nodeInfo := s.selectHost(t)
-				// 异步绑定
-				go bind(t, nodeInfo)
+				select {
+				case <-s.stopC: // 退出通知
+					s.logger.Info("return scheduler...")
+					return
+				case t := <-s.queue.Get(): // 取出队列中的pod
+
+					t = s.runFilter(t)
+					// 打分node
+					t = s.runScorer(t)
+					// 选出最好的node
+					nodeInfo := s.selectHost(t)
+					// 异步绑定
+					go bind(t, nodeInfo)
+				}
 
 			}
 		}()
 	}
 }
 
+// Stop 停止
+func (s *Scheduler) Stop() {
+	if s.queue.Len() > 0 {
+		s.logger.Info("scheduler queue still have element...")
+	}
+	close(s.stopC)
+}
+
 // runFilter 执行过滤插件
 func (s *Scheduler) runFilter(pod _interface.Pod) _interface.Pod {
-	fmt.Println("runFilter。。。")
+	s.logger.Info("runFilter...")
 	if s.podFiltered(pod) {
 		return pod
 	}
-	fmt.Println("没有runFilter。。。")
+	s.logger.Info("have no pod to run...")
+	// 把无法调度的放入backoffQ中
+	s.queue.Backoff(pod)
 	return nil
 }
 
 // runScorer 执行打分插件
 func (s *Scheduler) runScorer(pod _interface.Pod) _interface.Pod {
-	fmt.Println("runScorer。。。")
+	s.logger.Info("runScorer...")
 	var totalScore float64
 	if pod == nil {
-		fmt.Println("没有runScorer操作")
+		s.logger.Info("have no pod to score...")
 		return nil
 	}
 	for _, nodeInfo := range s.nodeInfos.NodeInfos {
@@ -78,7 +142,6 @@ func (s *Scheduler) runScorer(pod _interface.Pod) _interface.Pod {
 			pod.SetPodRecordNode(nodeInfo.NodeName, totalScore)
 			totalScore = 0
 		}
-
 	}
 
 	return pod
@@ -88,7 +151,7 @@ func (s *Scheduler) runScorer(pod _interface.Pod) _interface.Pod {
 func (s *Scheduler) selectHost(pod _interface.Pod) *nodes.NodeInfo {
 	var resNodeInfo *nodes.NodeInfo
 	if pod == nil {
-		fmt.Println("没有selectHost操作")
+		s.logger.Info("have no pod to select host...")
 		return resNodeInfo
 	}
 	nodeList := pod.GetPodRecordNodeList()
@@ -112,7 +175,7 @@ func (s *Scheduler) selectHost(pod _interface.Pod) *nodes.NodeInfo {
 // bind 绑定
 func bind(pod _interface.Pod, nodeInfo *nodes.NodeInfo) {
 	if pod == nil || nodeInfo == nil {
-		fmt.Println("没有bind操作")
+		klog.Info("have no pod or node to bind...")
 		return
 	}
 	pod.SetNode(nodeInfo.NodeName)

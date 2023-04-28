@@ -61,7 +61,8 @@ func Run(ctx context.Context, opts *Options) {
 	http.ListenAndServe(fmt.Sprintf(":%v", opts.Port), nil)
 }
 
-func main() {
+func Example1() {
+
 	opts := NewOptions()
 	flags := pflag.NewFlagSet(os.Args[0], pflag.ExitOnError)
 	// 把命令行参数转为options

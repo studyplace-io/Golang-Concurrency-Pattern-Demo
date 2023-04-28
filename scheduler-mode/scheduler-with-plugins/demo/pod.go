@@ -1,8 +1,8 @@
 package demo
 
 import (
-	"fmt"
 	_interface "golanglearning/new_project/Golang-Concurrency-Pattern-Demo/scheduler-mode/scheduler-with-plugins/interface"
+	"k8s.io/klog/v2"
 )
 
 type MockPod struct {
@@ -12,7 +12,7 @@ type MockPod struct {
 }
 
 func (m *MockPod) Exec() {
-	fmt.Println("pod", m.Name, "在", m.SelectNode, "节点上")
+	klog.Info("pod ", m.Name, " in ", m.SelectNode, " node")
 }
 
 func (m *MockPod) SetNode(s string) {

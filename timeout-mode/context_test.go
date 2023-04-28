@@ -40,7 +40,8 @@ func doSomething(ctx context.Context, name string, stopC chan struct{}) {
 		case <-ctx.Done():
 			fmt.Printf("%s done!\n", name)
 			fmt.Printf("%s 退出\n", name)
-			close(stopC)
+			//close(stopC)
+			stopC <- struct{}{}
 			return
 		default:
 			fmt.Printf("%s had worked %d seconds \n", name, i)

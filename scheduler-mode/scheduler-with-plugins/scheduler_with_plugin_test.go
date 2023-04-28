@@ -1,9 +1,11 @@
 package scheduler_with_plugins
 
 import (
+	"fmt"
 	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/scheduler-mode/scheduler-with-plugins/demo"
 	_interface "golanglearning/new_project/Golang-Concurrency-Pattern-Demo/scheduler-mode/scheduler-with-plugins/interface"
 	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/scheduler-mode/scheduler-with-plugins/nodes"
+	"k8s.io/klog/v2"
 	"sync"
 	"testing"
 	"time"
@@ -11,13 +13,19 @@ import (
 
 func TestSchedulerWithPlugin(test *testing.T) {
 
+	schedulerName := fmt.Sprintf("%s-scheduler", "test")
+
 	// 调度器
 	scheduler := Scheduler{
-		pods:      make(chan _interface.Pod, 10),
+		name:      schedulerName,
+		options:   &defaultOptions,
+		queue:     NewScheduleQueue(defaultOptions.queueCapacity),
 		nodeInfos: nodes.NewNodeInfos(),
-		workers:   8,
+		workers:   defaultOptions.numWorker,
 		plugins:   make([]_interface.Plugin, 0),
 		wg:        sync.WaitGroup{},
+		stopC:     make(chan struct{}),
+		logger:    klog.LoggerWithName(klog.Background(), schedulerName),
 	}
 
 	// 加入模拟node
@@ -30,8 +38,17 @@ func TestSchedulerWithPlugin(test *testing.T) {
 	go scheduler.run()
 
 	go func() {
+		// 需要等待并发
 		scheduler.wg.Wait()
 	}()
+
+	defer func() {
+		// 通知退出
+		scheduler.Stop()
+		time.Sleep(time.Second * 2)
+	}()
+
+	// 加入pod对象入队
 
 	res := make([]*demo.MockPod, 0)
 
@@ -56,6 +73,7 @@ func TestSchedulerWithPlugin(test *testing.T) {
 	scheduler.AddPod(t3)
 	res = append(res, t3)
 
+	// 加入plugin插件
 	scheduler.AddPlugin(&demo.MockPlugin{})
 
 	// 查看每个task被调度到哪个节点

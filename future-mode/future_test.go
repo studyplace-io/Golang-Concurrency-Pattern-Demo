@@ -27,16 +27,19 @@ type query struct {
 }
 
 func newQuery() *query {
-	return &query{sql: make(chan string, 1), result: make(chan string, 1)}
+	return &query{sql: make(chan string, 2), result: make(chan string, 2)}
 }
 
 // execQuery 执行查询db任务
 func execQuery(q *query) {
 	go func() {
-		queryCmd := <-q.sql
-		fmt.Println("查询db，耗时任务")
-		time.Sleep(time.Second * 10)
-		q.result <- "result from " + queryCmd
+		for {
+			queryCmd := <-q.sql
+			fmt.Println("查询db，耗时任务")
+			time.Sleep(time.Second * 3)
+			q.result <- "result from " + queryCmd
+		}
+
 	}()
 }
 
@@ -46,13 +49,12 @@ func TestFutureMode(test *testing.T) {
 
 	go execQuery(q)
 	q.sql <- "select * from table"
-	time.Sleep(10 * time.Second)
+	time.Sleep(3 * time.Second)
 
 	fmt.Println("我这里还能做好多事情。。。。。")
 
 	fmt.Println(<-q.result)
-
 	q.sql <- "select * from table aaa "
-	time.Sleep(10 * time.Second)
+	time.Sleep(3 * time.Second)
 	fmt.Println(<-q.result)
 }
