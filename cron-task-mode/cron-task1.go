@@ -26,7 +26,7 @@ func TestCron(wg *sync.WaitGroup) {
 	fmt.Println(time.Now(), EntryID, err)
 
 	c.Start()
-	time.Sleep(time.Minute * 1)
+	//time.Sleep(time.Minute * 1)
 
 }
 
