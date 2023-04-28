@@ -48,7 +48,8 @@ func TestTimeWheel(test *testing.T) {
 
 	//// 删除task
 	fmt.Println("Remove task task-5s")
-	err := tw.RemoveTask("task-5s")
+	s := TaskName("task-5s")
+	err := tw.RemoveTask(s)
 	if err != nil {
 		panic(err)
 	}
@@ -56,7 +57,8 @@ func TestTimeWheel(test *testing.T) {
 	time.Sleep(2 * time.Second)
 
 	fmt.Println("Remove task task-2s")
-	err = tw.RemoveTask("task-2s")
+	s = TaskName("task-2s")
+	err = tw.RemoveTask(s)
 	if err != nil {
 		panic(err)
 	}

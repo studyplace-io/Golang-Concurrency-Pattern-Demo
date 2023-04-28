@@ -100,8 +100,6 @@ func TestWaitForTasks(t *testing.T) {
 			case <-stopC:
 				fmt.Println("task execute stopped!")
 				return
-			default:
-				fmt.Println("nothing")
 			}
 
 		}
@@ -114,7 +112,7 @@ func TestWaitForTasks(t *testing.T) {
 	for i := 0; i < 20; i++ {
 		taskC <- newTask(rand.Intn(20))
 	}
-	close(taskC)
+
 	close(stopC)
 
 	// 执行业务逻辑
@@ -125,7 +123,7 @@ func TestWaitForTasks(t *testing.T) {
 
 const (
 	capacity   = 10
-	requestNum = 100
+	requestNum = 30
 )
 
 // TestDropMode Drop模式
@@ -152,11 +150,11 @@ func TestDropMode(test *testing.T) {
 			fmt.Println("put task in taskC")
 		default:
 			fmt.Println("drop some task")
-			time.Sleep(time.Second * 2)
+			time.Sleep(time.Second * 1)
 		}
 	}
 	// 关闭
-	close(taskC)
+	defer close(taskC)
 	wg.Done()
 
 }

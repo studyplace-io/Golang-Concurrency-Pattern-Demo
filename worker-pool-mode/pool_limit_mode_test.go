@@ -107,7 +107,6 @@ func TestLimitWaitGroup(test *testing.T) {
 		lp.BlockAdd()
 		url := url
 		go func() {
-			time.Sleep(time.Duration(time.Second * 5))
 			defer lp.Done()
 			if url == "https://www.f.com" {
 				time.Sleep(time.Duration(time.Second * 5))
