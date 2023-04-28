@@ -61,13 +61,13 @@ func TestCron2(wg *sync.WaitGroup) {
 
 	c := cron.New(cron.WithSeconds())
 
-	EntryID, err := c.AddJob("*/5 * * * * *", &Job1{})
+	EntryID, err := c.AddJob("*/3 * * * * *", &Job1{})
 	fmt.Println(time.Now(), EntryID, err)
 
-	EntryID, err = c.AddJob("*/10 * * * * *", &Job2{})
+	EntryID, err = c.AddJob("*/5 * * * * *", &Job2{})
 	fmt.Println(time.Now(), EntryID, err)
 
 	c.Start()
-	time.Sleep(time.Second * 20)
+	time.Sleep(time.Second * 10)
 
 }

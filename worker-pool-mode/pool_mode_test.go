@@ -103,7 +103,7 @@ func TestObjPool(t *testing.T) {
 
 	pool := NewObjPool(5, false)
 
-	obj1, err := pool.GetObj(time.Second * 10)
+	obj1, err := pool.GetObj(time.Second * 5)
 	obj1.Execute()
 	if err != nil {
 		fmt.Println(err)
@@ -113,7 +113,7 @@ func TestObjPool(t *testing.T) {
 	fmt.Println(obj1)
 
 	for i := 0; i < 20; i++ {
-		if obj, err := pool.GetObj(time.Second * 10); err != nil {
+		if obj, err := pool.GetObj(time.Second * 5); err != nil {
 			fmt.Println(err)
 			return
 		} else {

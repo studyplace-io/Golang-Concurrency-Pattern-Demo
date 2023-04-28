@@ -44,7 +44,7 @@ func TestTimeWheel(test *testing.T) {
 	} else {
 		panic("TimeWheel is not running")
 	}
-	time.Sleep(10 * time.Second)
+	time.Sleep(3 * time.Second)
 
 	//// 删除task
 	fmt.Println("Remove task task-5s")
@@ -53,7 +53,7 @@ func TestTimeWheel(test *testing.T) {
 		panic(err)
 	}
 
-	time.Sleep(10 * time.Second)
+	time.Sleep(2 * time.Second)
 
 	fmt.Println("Remove task task-2s")
 	err = tw.RemoveTask("task-2s")

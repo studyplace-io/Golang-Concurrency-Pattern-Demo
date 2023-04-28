@@ -20,7 +20,7 @@ func TestContextCancel(t *testing.T) {
 	var wg sync.WaitGroup
 	wg.Add(1)
 	// 模拟过一定时间，定时关闭context
-	go time.AfterFunc(time.Second*10, func() {
+	go time.AfterFunc(time.Second*5, func() {
 		defer wg.Done()
 		fmt.Println("10 second, cancel func")
 		cancel()
@@ -54,7 +54,7 @@ func doSomething(ctx context.Context, name string, stopC chan struct{}) {
 
 func TestContextTimeout(t *testing.T) {
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 	stopC := make(chan struct{})
 
@@ -84,7 +84,7 @@ func TestContextTimeout2(t *testing.T) {
 	case <-ctx.Done():
 		fmt.Println("call successfully!!!")
 		return
-	case <-time.After(time.Duration(time.Second * 20)):
+	case <-time.After(time.Duration(time.Second * 10)):
 		fmt.Println("timeout!!!")
 		return
 	}

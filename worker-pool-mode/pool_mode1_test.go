@@ -124,7 +124,7 @@ func TestTaskPool(t *testing.T) {
 	p.AddTaskFunc(func() {
 		defer p.Wg.Done()
 		fmt.Println("这是一个func!!")
-		time.Sleep(time.Second * 10)
+		time.Sleep(time.Second * 5)
 		fmt.Println("func finished")
 	})
 	p.AddTask(task3)

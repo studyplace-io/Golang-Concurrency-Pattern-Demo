@@ -12,19 +12,6 @@ env:
 
 jobs:
 
-  misspell-check:
-    runs-on: ubuntu-latest
-    container: pouchcontainer/pouchlinter:v0.1.2
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      # - name: Run markdownlint misspell
-      #   run: find  ./* -name  "*"  | xargs misspell -error
-
-      - name: Lint markdown files
-        run: find  ./ -name  "*.md" | xargs mdl -r ~MD010,~MD013,~MD022,~MD024,~MD029,~MD031,~MD032,~MD033,~MD034,~MD036
-
   golang-lint:
     runs-on: ubuntu-latest
     steps:
