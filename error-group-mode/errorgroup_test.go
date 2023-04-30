@@ -50,7 +50,7 @@ func TryUseWaitGroup() {
 	}
 
 	wg.Wait()
-	fmt.Println("goroutine执行完毕，结束阻塞")
+	fmt.Println("main goroutine finished...")
 }
 
 // TryUseErrGroup 使用errgroup.Group来捞出有错的goroutine
@@ -87,7 +87,7 @@ func TryUseErrGroup() {
 	} else {
 		fmt.Println("All success!")
 	}
-	fmt.Println("主goroutine阻塞结束，进程退出")
+	fmt.Println("main goroutine finished...")
 }
 
 func ErrGroupUseContext() {

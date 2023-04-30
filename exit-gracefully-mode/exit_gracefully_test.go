@@ -36,7 +36,7 @@ func exitSignalHandler() {
 
 	// 采用一个goroutine执行业务逻辑，多是一个常驻goroutine
 	go func() {
-		fmt.Println("这里执行业务逻辑。。。。。")
+		fmt.Println("do something.....")
 	}()
 
 	// 阻塞
@@ -67,7 +67,7 @@ func SetupSignalHandler(shutdownFunc func(bool)) {
 	)
 	// 启一个goroutine执行业务逻辑
 	go func() {
-		fmt.Println("这里执行业务逻辑。。。。。")
+		fmt.Println("do something.....")
 	}()
 
 	// 当没有信号传入时，会阻塞
@@ -84,10 +84,10 @@ func shutdown(isGraceful bool) {
 	// 查看通知种类，判断是否优雅退出
 
 	if isGraceful {
-		fmt.Println("优雅退出")
+		fmt.Println("graceful exit...")
 		//当满足 sig == syscall.SIGQUIT,做相应退出处理 ex: 清理资源
 	}
-	fmt.Println("强制退出")
+	fmt.Println("force exit...")
 	// 不是syscall.SIGQUIT的退出信号时，做相应退出处理
 
 }

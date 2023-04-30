@@ -35,7 +35,7 @@ func execQuery(q *query) {
 	go func() {
 		for {
 			queryCmd := <-q.sql
-			fmt.Println("查询db，耗时任务")
+			fmt.Println("query db，cost a lot of time...")
 			time.Sleep(time.Second * 3)
 			q.result <- "result from " + queryCmd
 		}
@@ -51,7 +51,7 @@ func TestFutureMode(test *testing.T) {
 	q.sql <- "select * from table"
 	time.Sleep(3 * time.Second)
 
-	fmt.Println("我这里还能做好多事情。。。。。")
+	fmt.Println("do something.....")
 
 	fmt.Println(<-q.result)
 	q.sql <- "select * from table aaa "

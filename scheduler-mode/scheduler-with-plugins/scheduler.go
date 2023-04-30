@@ -77,6 +77,7 @@ func (s *Scheduler) AddPod(pod _interface.Pod) {
 
 // run 启动调度器
 func (s *Scheduler) run() {
+	// 启动队列
 	go s.queue.Run(s.stopC)
 
 	for i := 0; i < s.workers; i++ {
@@ -111,7 +112,8 @@ func (s *Scheduler) Stop() {
 	if s.queue.Len() > 0 {
 		s.logger.Info("scheduler queue still have element...")
 	}
-	close(s.stopC)
+	// 通知退出
+	close(s.stopC)	// 通知
 }
 
 // runFilter 执行过滤插件

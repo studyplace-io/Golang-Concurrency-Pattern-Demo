@@ -32,7 +32,7 @@ func RequestFuture(url string) <-chan []byte {
 func TestFuture(test *testing.T) {
 	future := RequestFuture("https://api.github.com/users/octocat/orgs")
 	// 中间可以实现自己的业务逻辑。。。。。
-	fmt.Println("这里可以搞其他事情。。。")
+	fmt.Println("do something.....")
 
 	// 当需的时候可以从chan出来
 	body := <-future
@@ -68,7 +68,7 @@ func TestFutureWithError(test *testing.T) {
 	res, errC := RequestFutureV2("https://api.github.com/users/octocat/orgs")
 
 	// 中间可以实现自己的业务逻辑。。。。。
-	fmt.Println("这里可以搞其他事情。。。")
+	fmt.Println("do something.....")
 
 	select {
 	case r := <-res:

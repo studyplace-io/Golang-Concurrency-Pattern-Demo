@@ -17,13 +17,13 @@ func TestWaitForTResult(t *testing.T) {
 	go func() {
 		// 执行业务逻辑
 		time.Sleep(time.Second * 5)
-		fmt.Println("可以进行一些异步的逻辑")
+		fmt.Println("do something.....")
 
 		// 当执行完后，可以通知主goroutine执行后面的逻辑
 		waitC <- struct{}{}
 	}()
 
-	fmt.Println("这里可以执行不相关的业务逻辑")
+	fmt.Println("do something other.....")
 
 	<-waitC
 	fmt.Println("接著干剩下的活")

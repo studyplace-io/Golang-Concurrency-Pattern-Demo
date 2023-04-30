@@ -11,6 +11,7 @@ import (
 	使用"github.com/antlabs/timer" 实现定时的简单任务调度
 */
 
+// After 一次性执行多个callbackFunc
 func After(tm timer.Timer, duration time.Duration, callbackFunc func(), taskNum int) {
 	var wg sync.WaitGroup
 	wg.Add(taskNum)
@@ -27,6 +28,7 @@ func After(tm timer.Timer, duration time.Duration, callbackFunc func(), taskNum 
 
 }
 
+// Schedule 定时执行callbackFunc方法
 // ＠param timer.Timer 计时器
 // ＠param time.Duration 调度时间
 // ＠param op func() 待调度的callback函数

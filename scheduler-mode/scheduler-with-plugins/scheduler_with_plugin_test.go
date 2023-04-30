@@ -43,7 +43,6 @@ func TestSchedulerWithPlugin(test *testing.T) {
 	}()
 
 	defer func() {
-		// 通知退出
 		scheduler.Stop()
 		time.Sleep(time.Second * 2)
 	}()

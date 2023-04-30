@@ -59,6 +59,6 @@ func TryUseErrorChan(num int) {
 		fmt.Println(err)
 	}
 
-	fmt.Println("主goroutine退出")
+	fmt.Println("main goroutine finished...")
 
 }
