@@ -7,7 +7,7 @@ type Queue struct {
 	// 所有加入队列的对象都放入此chan
 	activeQ chan _interface.Pod
 	// 当有调度错误时，放入backoffQ
-	backoffQ  chan _interface.Pod
+	backoffQ chan _interface.Pod
 
 	// 调度时，从out chan中取对象
 	out chan _interface.Pod
@@ -15,9 +15,9 @@ type Queue struct {
 
 func NewScheduleQueue(capacity int) *Queue {
 	return &Queue{
-		activeQ: make(chan _interface.Pod, capacity),
-		backoffQ:  make(chan _interface.Pod, capacity),
-		out:       make(chan _interface.Pod, capacity*2),
+		activeQ:  make(chan _interface.Pod, capacity),
+		backoffQ: make(chan _interface.Pod, capacity),
+		out:      make(chan _interface.Pod, capacity*2),
 	}
 }
 

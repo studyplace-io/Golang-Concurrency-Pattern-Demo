@@ -18,7 +18,7 @@ type Scheduler struct {
 	workers   int                 // 控制并发数
 	plugins   []_interface.Plugin // 插件
 
-	wg        sync.WaitGroup
+	wg     sync.WaitGroup
 	stopC  chan struct{} // 通知
 	logger klog.Logger
 }
@@ -113,7 +113,7 @@ func (s *Scheduler) Stop() {
 		s.logger.Info("scheduler queue still have element...")
 	}
 	// 通知退出
-	close(s.stopC)	// 通知
+	close(s.stopC) // 通知
 }
 
 // runFilter 执行过滤插件

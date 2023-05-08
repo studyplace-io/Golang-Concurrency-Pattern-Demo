@@ -10,15 +10,17 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"strings"
 )
 
 // Options 模拟配置文件
 type Options struct {
-	Port  int
-	test  string
-	test1 bool
-	test2 int
+	HealthPort int
+	Port       int
+	test       string
+	test1      bool
+	test2      int
 }
 
 func NewOptions() *Options {
@@ -26,13 +28,15 @@ func NewOptions() *Options {
 }
 
 const (
-	DefaultTest = "test"
-	DefaultPort = 8080
+	DefaultTest       = "test"
+	DefaultPort       = 8080
+	DefaultHealthPort = 9999
 )
 
 // AddFlags 加入命令行参数
 func (o *Options) AddFlags(flags *pflag.FlagSet) {
 	flags.IntVar(&o.Port, "port", DefaultPort, "xxx")
+	flags.IntVar(&o.Port, "healthPort", DefaultHealthPort, "xxx")
 	flags.StringVar(&o.test, "test", DefaultTest, "xxx")
 	flags.IntVar(&o.test2, "test2", 1000, "xxx")
 	flags.BoolVar(&o.test1, "test1", false, "xxx")
@@ -57,6 +61,19 @@ func test(w http.ResponseWriter, req *http.Request) {
 
 // Run 执行
 func Run(ctx context.Context, opts *Options) {
+
+	// 心跳检测健康机制
+	go func() {
+		handler := &healthz.Handler{
+			Checks: map[string]healthz.Checker{
+				"healthz": healthz.Ping,
+			},
+		}
+		if err := http.ListenAndServe(fmt.Sprintf("0.0.0.0:%d", opts.HealthPort), handler); err != nil {
+			klog.Fatalf("Failed to start healthz endpoint: %v", err)
+		}
+	}()
+
 	http.HandleFunc("/test", test)
 	http.ListenAndServe(fmt.Sprintf(":%v", opts.Port), nil)
 }
