@@ -1,6 +1,8 @@
-package podworker_mode
+package kubelet
 
-import "golanglearning/new_project/Golang-Concurrency-Pattern-Demo/kubelet-podworker-mode/container"
+import (
+	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/kubelet-podworker-mode/kubelet/container"
+)
 
 // Pod 模拟Pod对象
 type Pod struct {
@@ -13,9 +15,9 @@ type PodStatus string
 
 const (
 	NoRunning PodStatus = "noRunning"
-	Running  PodStatus = "running"
-	Failed   PodStatus = "failed"
-	UnKnow   PodStatus = "unKnow"
+	Running   PodStatus = "running"
+	Failed    PodStatus = "failed"
+	UnKnow    PodStatus = "unKnow"
 )
 
 // PodOperation 标示Pod的事件

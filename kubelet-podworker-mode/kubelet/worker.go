@@ -1,16 +1,20 @@
-package podworker_mode
+package kubelet
 
 import (
 	"context"
-	container2 "golanglearning/new_project/Golang-Concurrency-Pattern-Demo/kubelet-podworker-mode/container"
+	"errors"
+	container2 "golanglearning/new_project/Golang-Concurrency-Pattern-Demo/kubelet-podworker-mode/kubelet/container"
 	"k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/klog/v2"
 	"sync"
 )
 
+// PodWorkers 负责所有pod的生命周期
 type PodWorkers struct {
-	podUpdates           map[string]chan PodWork
-	podLock              sync.Mutex
+	// 管理每个pod的map
+	podUpdates map[string]chan PodWork
+	podLock    sync.Mutex
+	// pod的同步事件处理func
 	syncPodFn            syncPodFnType
 	syncTerminatingPodFn syncTerminatingPodFnType
 	syncTerminatedPodFn  syncTerminatedPodFnType
@@ -25,56 +29,92 @@ func newPodWorkers(syncPodFn syncPodFnType, syncTerminatingPodFn syncTerminating
 	}
 }
 
+// preCheckForRunContainer 检查此节点是否可以运行
+func (k *Kubelet) preCheckForRunContainer(pod *Pod) error {
+	ok := k.canRunPod(pod)
+	if !ok {
+		return errors.New("check security permissions fail")
+	}
+
+	err := k.buildCgroups(pod)
+	if err != nil {
+		return err
+	}
+	err = k.makePodDataDirs(pod)
+	if err != nil {
+		return err
+	}
+	return err
+}
+
+// canRunPod 判断此node是否可以运行此pod，确保 pod 有正确的安全权限
+func (k *Kubelet) canRunPod(pod *Pod) bool {
+	klog.Info("check security permissions...")
+	return true
+}
+
+// buildCgroups 为pod的容器设置Cgroups
+func (k *Kubelet) buildCgroups(pod *Pod) error {
+	klog.Info("Set up cgroups for all containers of the pod...")
+	return nil
+}
+
+// makePodDataDirs 为pod的容器挂载需要的目录
+func (k *Kubelet) makePodDataDirs(pod *Pod) error {
+	klog.Info("Create the required directories for the pod's containers...")
+	return nil
+}
+
 func (k *Kubelet) syncPod(_ context.Context, pod *Pod) error {
 	klog.Info("syncPod....")
-	// TODO: 这里可以对容器进行操作
 	// 1. 首先如果状态不是running，代表第一次启动
 	// 2. 遍历启动每个容器，并且改容器状态为running，如果有任何个失败，退出，并改成failed
 	// 3. 如果都正常running，就把pod改为running
-
-	// 如果pod原本就是running，遍历检查容器状态，如果出现fail，就修改pod的状态为failed
-
 	if pod.Status == NoRunning {
+		// 检查是否能运行容器
+		err := k.preCheckForRunContainer(pod)
+		if err != nil {
+			pod.Status = Failed
+			return nil
+		}
+
 		for _, container := range pod.Containers {
 
 			c := container.(*container2.Container)
 
 			err := c.PullImage(c.Image)
 			if err != nil {
-				c.Status = container2.Fail
 				pod.Status = Failed
 				return nil
 			}
 			err = c.RunPodSandbox()
 			if err != nil {
-				c.Status = container2.Fail
 				pod.Status = Failed
 				return nil
 			}
 			err = c.CreateContainer()
 			if err != nil {
 				// TODO: 这里要退出容器操作
-				c.Status = container2.Fail
 				pod.Status = Failed
 				return nil
 			}
 			err = c.StartContainer()
 			if err != nil {
-				c.Status = container2.Fail
 				pod.Status = Failed
 				return nil
 			}
-			c.Status = container2.Running
 		}
 		pod.Status = Running
+		k.podManager.AddPod(pod)
 	}
 
+	// 如果pod原本就是running，遍历检查容器状态，如果出现fail，就修改pod的状态为failed
 	if pod.Status == Running {
 		for _, container := range pod.Containers {
 			c := container.(*container2.Container)
 			if c.Status != container2.Running {
 				pod.Status = Failed
-				// TODO: 这里需要考虑容器退出处理
+				// FIXME: 这里需要考虑容器退出处理
 			}
 		}
 	}
@@ -114,22 +154,24 @@ const (
 	TerminatedPodWork
 )
 
+// PodWork podWorker管理的对象，也就是pod外面再包装一层
 type PodWork struct {
 	WorkType PodWorkType
 	Pod      *Pod
 }
 
+// UpdatePod 管理pod的主要逻辑
 func (p *PodWorkers) UpdatePod(options UpdatePodOptions) {
-
 	pod := options.Pod
 	p.podLock.Lock()
 	defer p.podLock.Unlock()
 
+	// 查map，是否已经启动goroutine
 	podUpdates, exists := p.podUpdates[options.Pod.Name]
 	if !exists {
 		podUpdates = make(chan PodWork, 1)
 		p.podUpdates[options.Pod.Name] = podUpdates
-
+		// 第一次使用pod worker管理一个pod的生命周期，需要启动goroutine管理
 		go func() {
 			klog.Infof("pod %s start a goroutine to handle events...", pod.Name)
 			defer func() {
@@ -164,8 +206,10 @@ func (p *PodWorkers) UpdatePod(options UpdatePodOptions) {
 
 func (p *PodWorkers) managePodLoop(podUpdates <-chan PodWork) {
 
+	// 不断从chan中取出pod
 	for update := range podUpdates {
 
+		// 区分不同命令的pod
 		err := func() error {
 			var err error
 			switch {
@@ -179,6 +223,7 @@ func (p *PodWorkers) managePodLoop(podUpdates <-chan PodWork) {
 			return err
 		}()
 
+		// 不同结果
 		switch {
 		case err == context.Canceled:
 			klog.Info("the context is canceled...")
