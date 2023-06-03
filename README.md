@@ -26,6 +26,8 @@
 
 11. 优雅退出模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/exit-gracefully-mode)
 
-12.  调度器模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/scheduler-mode)
+12. 调度器模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/scheduler-mode)
 
-13.  时间轮模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/timewheel-mode)
+13. 时间轮模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/timewheel-mode)
+
+14. kubelet-podWorker模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/kubelet-podworker-mode)
