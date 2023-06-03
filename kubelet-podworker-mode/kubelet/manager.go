@@ -6,26 +6,23 @@ import (
 
 // Manager 管理器
 type Manager interface {
-	// GetPods returns the regular pods bound to the kubelet and their spec.
+	// GetPods 获取所有的pod
 	GetPods() []*Pod
+	// GetPodByName 获取特定pod
 	GetPodByName(name string) (*Pod, bool)
-	// SetPods replaces the internal pods with the new pods.
-	// It is currently only used for testing.
+	// SetPods 初始化
 	SetPods()
-	// AddPod adds the given pod to the manager.
+	// AddPod 把传入的pod加入的管理器中
 	AddPod(pod *Pod)
-	// UpdatePod updates the given pod in the manager.
+	// UpdatePod 更新管理器中的pod
 	UpdatePod(pod *Pod)
-	// DeletePod deletes the given pod from the manager.  For mirror pods,
-	// this means deleting the mappings related to mirror pods.  For non-
-	// mirror pods, this means deleting from indexes for all non-mirror pods.
+	// DeletePod 删除管理器中的pod
 	DeletePod(pod *Pod)
 }
 
 type basicManager struct {
-	// Protects all internal maps.
 	lock sync.RWMutex
-	// Pods indexed by full name for easy access.
+	// podByFullName 用来存储pod对象
 	podByFullName map[string]*Pod
 }
 
@@ -38,7 +35,6 @@ func NewBasicPodManager() Manager {
 	return pm
 }
 
-// Set the internal pods based on the new pods.
 func (pm *basicManager) SetPods() {
 	pm.lock.Lock()
 	defer pm.lock.Unlock()
