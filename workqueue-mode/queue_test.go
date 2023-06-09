@@ -18,13 +18,14 @@ func TestQueue(t *testing.T) {
 		go func(i int) {
 			defer producerWG.Done()
 			for j := 0; j < 50; j++ {
+				// 加入工作队列
 				q.Add(i)
 				time.Sleep(time.Millisecond)
 			}
 		}(i)
 	}
 
-	// Start consumers
+	// 多个消费者，从工作队列中取出对象
 	const consumers = 10
 	consumerWG := sync.WaitGroup{}
 	consumerWG.Add(consumers)
@@ -32,6 +33,7 @@ func TestQueue(t *testing.T) {
 		go func(i int) {
 			defer consumerWG.Done()
 			for {
+				// 从工作队列中取出
 				item, quit := q.Get()
 				if item == "added after shutdown!" {
 					t.Errorf("Got an item added after shutdown.")
