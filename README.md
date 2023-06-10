@@ -35,3 +35,5 @@
 15. 工作队列模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/workqueue-mode)
 
 16. 事件通知器模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/event-processor-mode) 
+
+17. 并发队列模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/concurrent-queue-mode)
