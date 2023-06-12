@@ -10,6 +10,7 @@ require (
 	github.com/spf13/cobra v1.2.1
 	github.com/spf13/pflag v1.0.5
 	golang.org/x/sync v0.1.0
+	golang.org/x/time v0.0.0-20210723032227-1f47c861a9ac
 	k8s.io/apimachinery v0.26.1
 	k8s.io/component-base v0.23.5
 	k8s.io/klog/v2 v2.90.1

@@ -4,7 +4,7 @@ import (
 	"sync"
 )
 
-// Interface 作队列接口对象
+// Interface 队列接口对象
 type Interface interface {
 	// Add 加入工作队列
 	Add(item interface{})
@@ -17,7 +17,7 @@ type Interface interface {
 	IsShutDown() bool
 }
 
-// 放入队列的对象
+// obj 放入队列的对象
 type obj interface{}
 
 type queue struct {

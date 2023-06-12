@@ -38,7 +38,10 @@ func RetryTimeout(ctx context.Context, retryInterval time.Duration, execute func
 }
 
 func TestRetryTimeout(test *testing.T) {
+	// 设置超时，超过十秒，整个链路会退出
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	// 永久重试
+	//ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
 	// 重试并超时
