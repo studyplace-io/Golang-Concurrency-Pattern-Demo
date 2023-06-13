@@ -1,6 +1,7 @@
 package workqueue_mode
 
 import (
+	"fmt"
 	"k8s.io/klog/v2"
 	"testing"
 	"time"
@@ -9,6 +10,15 @@ import (
 func TestSimpleQueue(t *testing.T) {
 
 	q := newDelayingQueue(newQueue())
+	// 加入回调方法
+	q.SetCallback(CallbackFunc{
+		AddFunc: func() {
+			fmt.Println("something add in queue...")
+		},
+		GetFunc: func() {
+			fmt.Println("something get from queue...")
+		},
+	})
 
 	first := "test"
 	first1 := "test1"

@@ -10,9 +10,10 @@ type Interface interface {
 	Add(item interface{})
 	// Get 从工作队列中取出对象
 	Get() (item interface{}, shutdown bool)
-	Len() int
 	// Done 记录该对象已经被处理
 	Done(item interface{})
+	SetCallback(handler CallbackHandler)
+	Len() int
 	ShutDown()
 	IsShutDown() bool
 }
@@ -30,6 +31,35 @@ type queue struct {
 	cond       *sync.Cond
 	// 队列是否关闭状态
 	close bool
+
+	// CallbackHandler 当缓存出现修改时，可执行的回调方法
+	callbacks CallbackHandler
+}
+
+// CallbackHandler 回调接口，可提供用户实现相应方法
+type CallbackHandler interface {
+	OnAdd()
+	OnGet()
+}
+
+// CallbackFunc 回调方法
+type CallbackFunc struct {
+	// OnAdd 加入队列，可执行的回调
+	AddFunc func()
+	// OnGet 获取队列，可执行的回调
+	GetFunc func()
+}
+
+func (c CallbackFunc) OnAdd() {
+	if c.AddFunc != nil {
+		c.AddFunc()
+	}
+}
+
+func (c CallbackFunc) OnGet() {
+	if c.GetFunc != nil {
+		c.GetFunc()
+	}
 }
 
 func newQueue() *queue {
@@ -80,6 +110,9 @@ func (q *queue) Add(item interface{}) {
 		return
 	}
 
+	if q.callbacks != nil {
+		q.callbacks.OnAdd()
+	}
 	// 加入queue中
 	q.queue = append(q.queue, item)
 	q.cond.Signal()
@@ -102,6 +135,10 @@ func (q *queue) Get() (item interface{}, shutdown bool) {
 	if len(q.queue) == 0 && q.close {
 		// We must be shutting down.
 		return nil, true
+	}
+
+	if q.callbacks != nil {
+		q.callbacks.OnGet()
 	}
 
 	// 变化切片
@@ -127,6 +164,10 @@ func (q *queue) Done(item interface{}) {
 		q.queue = append(q.queue, item)
 		q.cond.Signal()
 	}
+}
+
+func (q *queue) SetCallback(handler CallbackHandler) {
+	q.callbacks = handler
 }
 
 func (q *queue) ShutDown() {
