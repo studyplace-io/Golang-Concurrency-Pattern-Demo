@@ -15,7 +15,7 @@ func TestRunWithTimeForever(t *testing.T) {
 		}, 3)
 	}()
 
-	<-time.After(time.Second * 20)
+	<-time.After(time.Second * 10)
 
 }
 
@@ -23,7 +23,7 @@ func TestRunWithTimeWithChannel(t *testing.T) {
 	stopC := make(chan struct{})
 
 	go func() {
-		<-time.After(time.Second * 20)
+		<-time.After(time.Second * 10)
 		close(stopC)
 	}()
 
@@ -35,7 +35,7 @@ func TestRunWithTimeWithChannel(t *testing.T) {
 }
 
 func TestRunWithTimeWithContext(t *testing.T) {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*20)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer func() {
 		cancel()
 	}()

@@ -3,8 +3,6 @@ package timeout_mode
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
-	"net/http"
 	"time"
 )
 
