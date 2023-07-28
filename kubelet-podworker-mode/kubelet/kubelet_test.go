@@ -20,7 +20,7 @@ func TestKubelet(t *testing.T) {
 	k.podWorkers = newPodWorkers(k.syncPod, k.syncTerminatedPod, k.syncTerminatingPod)
 	e := make(chan PodUpdate, 10)
 	// 运行kubelet
-	go k.Run(e)
+	k.Run(e)
 
 	pods := make([]*Pod, 0)
 
@@ -67,22 +67,20 @@ func TestKubelet(t *testing.T) {
 	}
 	e <- aa
 
-
 	//aa := PodUpdate{
 	// Op:   ADD,
 	// Pods: podsa,
 	//}
 	//
 	aaa := PodUpdate{
-	Op:   DELETE,
-	Pods: pods,
+		Op:   DELETE,
+		Pods: pods,
 	}
 
 	aaaa := PodUpdate{
-	Op:   UPDATE,
-	Pods: podsa,
+		Op:   UPDATE,
+		Pods: podsa,
 	}
-
 
 	e <- aaa
 	e <- aaaa

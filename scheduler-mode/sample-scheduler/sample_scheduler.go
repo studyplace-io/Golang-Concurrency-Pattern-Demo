@@ -59,4 +59,3 @@ func (s *scheduler) stop() {
 	}()
 
 }
-

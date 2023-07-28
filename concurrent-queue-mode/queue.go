@@ -34,11 +34,9 @@ func (queue *queue) Pop() (interface{}, error) {
 	return <-queue.datas, nil
 }
 
-
 func (queue *queue) IsEmpty() bool {
 	return queue.size == 0
 }
-
 
 func (queue *queue) IsFull() bool {
 	return queue.size >= queue.maxSize

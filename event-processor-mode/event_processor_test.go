@@ -46,7 +46,7 @@ func TestEventProcessor(t *testing.T) {
 			defer wg.Done()
 			event := Event{
 				Type: Added,
-				Obj: i,
+				Obj:  i,
 			}
 			if i%3 == 0 {
 				event.Type = Modified

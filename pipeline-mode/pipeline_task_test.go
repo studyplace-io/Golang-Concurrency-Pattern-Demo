@@ -4,7 +4,6 @@ import (
 	"testing"
 )
 
-
 func TestTaskPipeline(t *testing.T) {
 	task1 := NewTask("task1")
 	task2 := NewTask("task2")

@@ -14,7 +14,7 @@ type Kubelet struct {
 	// node 节点名，记录本kubelet运行的节点
 	node string
 	// podWorkers 工作队列，负责对目前kubelet的pod进行生命周期管理
-	podWorkers *PodWorkers
+	podWorkers PodWorkers
 	// podManager pod记录管理器，负责记录目前kubelet运行的所有pod
 	podManager Manager
 
@@ -106,7 +106,7 @@ var _ SyncHandler = &Kubelet{}
 // Run 执行
 func (k *Kubelet) Run(updates <-chan PodUpdate) {
 	// 循环事件
-	k.syncLoop(context.Background(), updates, k)
+	go k.syncLoop(context.Background(), updates, k)
 }
 
 func (k *Kubelet) syncLoop(ctx context.Context, updates <-chan PodUpdate, handler SyncHandler) {

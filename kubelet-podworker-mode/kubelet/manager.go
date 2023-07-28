@@ -20,6 +20,7 @@ type Manager interface {
 	DeletePod(pod *Pod)
 }
 
+// basicManager pod的本地缓存
 type basicManager struct {
 	lock sync.RWMutex
 	// podByFullName 用来存储pod对象

@@ -9,8 +9,14 @@ import (
 	"sync"
 )
 
-// PodWorkers 负责所有pod的生命周期
-type PodWorkers struct {
+// PodWorkers kubelet中主要干活的组件
+type PodWorkers interface {
+	// 所有
+	UpdatePod(options UpdatePodOptions)
+}
+
+// podWorkers 负责所有pod的生命周期
+type podWorkers struct {
 	// 管理每个pod的map
 	podUpdates map[string]chan PodWork
 	podLock    sync.Mutex
@@ -20,8 +26,8 @@ type PodWorkers struct {
 	syncTerminatedPodFn  syncTerminatedPodFnType
 }
 
-func newPodWorkers(syncPodFn syncPodFnType, syncTerminatingPodFn syncTerminatingPodFnType, syncTerminatedPodFn syncTerminatedPodFnType) *PodWorkers {
-	return &PodWorkers{
+func newPodWorkers(syncPodFn syncPodFnType, syncTerminatingPodFn syncTerminatingPodFnType, syncTerminatedPodFn syncTerminatedPodFnType) *podWorkers {
+	return &podWorkers{
 		podUpdates:           make(map[string]chan PodWork),
 		syncPodFn:            syncPodFn,
 		syncTerminatingPodFn: syncTerminatingPodFn,
@@ -155,13 +161,14 @@ const (
 )
 
 // PodWork podWorker管理的对象，也就是pod外面再包装一层
+// 记录本次的pod事件类型与pod对象本身
 type PodWork struct {
 	WorkType PodWorkType
 	Pod      *Pod
 }
 
 // UpdatePod 管理pod的主要逻辑
-func (p *PodWorkers) UpdatePod(options UpdatePodOptions) {
+func (p *podWorkers) UpdatePod(options UpdatePodOptions) {
 	pod := options.Pod
 	p.podLock.Lock()
 	defer p.podLock.Unlock()
@@ -204,7 +211,7 @@ func (p *PodWorkers) UpdatePod(options UpdatePodOptions) {
 
 }
 
-func (p *PodWorkers) managePodLoop(podUpdates <-chan PodWork) {
+func (p *podWorkers) managePodLoop(podUpdates <-chan PodWork) {
 
 	// 不断从chan中取出pod
 	for update := range podUpdates {

@@ -6,7 +6,6 @@ import (
 	"time"
 )
 
-
 func TestObjPool(t *testing.T) {
 
 	pool := NewObjPool(5, false)

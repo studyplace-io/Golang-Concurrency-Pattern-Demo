@@ -99,4 +99,3 @@ func AnalyzeTask(resultTaskC <-chan *Task) {
 		fmt.Println(res.Result)
 	}
 }
-

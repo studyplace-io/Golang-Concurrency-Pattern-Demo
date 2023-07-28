@@ -26,7 +26,6 @@ func RequestFuture(url string) <-chan []byte {
 	return c
 }
 
-
 // RequestFutureV2 支持返回error结果
 func RequestFutureV2(url string) (<-chan []byte, <-chan error) {
 	c := make(chan []byte, 1)

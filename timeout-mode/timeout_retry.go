@@ -6,7 +6,6 @@ import (
 	"time"
 )
 
-
 // RetryTimeout 重试超时模式
 func RetryTimeout(ctx context.Context, retryInterval time.Duration, execute func(ctx context.Context) error) {
 	for {

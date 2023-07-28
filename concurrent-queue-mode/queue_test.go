@@ -41,5 +41,5 @@ func TestConcurrentQueue(t *testing.T) {
 		}(i)
 	}
 
-	time.Sleep(time.Second*3)
+	time.Sleep(time.Second * 3)
 }

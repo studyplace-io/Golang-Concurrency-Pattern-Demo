@@ -6,8 +6,6 @@ import (
 	"testing"
 )
 
-
-
 func TestFuture(test *testing.T) {
 	future := RequestFuture("https://api.github.com/users/octocat/orgs")
 	// 中间可以实现自己的业务逻辑。。。。。
@@ -17,7 +15,6 @@ func TestFuture(test *testing.T) {
 	body := <-future
 	log.Printf("reponse length: %d", len(body))
 }
-
 
 func TestFutureWithError(test *testing.T) {
 
