@@ -152,6 +152,8 @@ func (k *Kubelet) syncLoopIteration(ctx context.Context, configCh <-chan PodUpda
 	case <-syncCh:
 		// TODO: 定期上报容器状态
 		klog.Info("syncCh...")
+		allPods := k.podManager.GetPods()
+		handler.HandlePodSyncs(allPods)
 	case <-housekeepingCh:
 		// TODO: 需要定期检测处理坏的容器
 		klog.Info("housekeepingCh...")

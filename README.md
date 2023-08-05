@@ -41,3 +41,5 @@
 18. 定时任务模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/forever-mode)
 
 19. 并发环形队列模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/ring-mode)
+
+20. 控制器模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/kube-controller-mode)

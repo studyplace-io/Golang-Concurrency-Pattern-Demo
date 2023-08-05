@@ -11,7 +11,7 @@ import (
 
 // PodWorkers kubelet中主要干活的组件
 type PodWorkers interface {
-	// 所有
+	// 所有handler都走此方法
 	UpdatePod(options UpdatePodOptions)
 }
 
