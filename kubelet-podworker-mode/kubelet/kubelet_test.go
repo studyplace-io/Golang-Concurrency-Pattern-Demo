@@ -67,7 +67,7 @@ func TestKubelet(t *testing.T) {
 	}
 	e <- aa
 
-	//aa := PodUpdate{
+	//kube-controller-manager-mode := PodUpdate{
 	// Op:   ADD,
 	// Pods: podsa,
 	//}
