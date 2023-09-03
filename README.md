@@ -45,3 +45,5 @@
 20. 控制器模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/kube-controller-mode)
 
 21. kube-controller-manager模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/kube-controller-manager-mode)
+
+22. event模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/event-mode)

@@ -100,7 +100,7 @@ func Run(c *config.CompletedConfig, stopCh <-chan struct{}) error {
 
 func StartControllers(ctx context.Context, controllers map[string]InitFunc) error {
 	// Always start the SA token controller first using a full-power client, since it needs to mint tokens for the rest
-	// If this fails, just return here and fail since other controllers won't be able to get credentials.
+	// If this fails, just return here and fail since other controllers won'event-mode be able to get credentials.
 
 	// 遍历传进来的initFn，并执行
 	for controllerName, initFn := range controllers {

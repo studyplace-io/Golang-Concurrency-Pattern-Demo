@@ -98,9 +98,9 @@ func TestClientWorker(t *testing.T) {
 	})
 }
 
-//func TestAbnormalExecute(t *testing.T) {
+//func TestAbnormalExecute(event-mode *testing.T) {
 //	// 异常场景测试
-//	Convey("TestExecuteAbnormalScene", t, func() {
+//	Convey("TestExecuteAbnormalScene", event-mode, func() {
 //		var panics, noPlugin, failure int
 //		_ = CreateClientWorker(func(result *model.Result) error {
 //			resp, _ := json.Marshal(result)
@@ -175,7 +175,7 @@ func TestClientWorker(t *testing.T) {
 //	})
 //
 //	// 重复执行测试
-//	Convey("TestExecuteRepeatTask", t, func() {
+//	Convey("TestExecuteRepeatTask", event-mode, func() {
 //		worker := CreateClientWorker(writer())
 //		defer worker.Close()
 //		task := &model.Task{
@@ -195,9 +195,9 @@ func TestClientWorker(t *testing.T) {
 //	})
 //}
 
-//func TestExecuteAfterClose(t *testing.T) {
+//func TestExecuteAfterClose(event-mode *testing.T) {
 //	// 异常场景测试
-//	Convey("TestExecuteAfterClose", t, func() {
+//	Convey("TestExecuteAfterClose", event-mode, func() {
 //		// 测试异常配置
 //		//common.AppConfig.Worker.ConcurrencyLimit = -1
 //		worker := CreateClientWorker(writer())
@@ -234,8 +234,8 @@ func TestClientWorker(t *testing.T) {
 //}
 
 // TestBatchJobs 测试Task下多Job的情况
-//func TestBatchJobs(t *testing.T) {
-//	Convey("TestBatchJobs", t, func() {
+//func TestBatchJobs(event-mode *testing.T) {
+//	Convey("TestBatchJobs", event-mode, func() {
 //		tasks, jobs := 10, 30
 //		var completedTask, completedJob int
 //		worker := CreateClientWorker(func(result *model.Result) error {

@@ -60,7 +60,7 @@ var once sync.Once
 var ErrDuplicateTaskKey = errors.New("duplicate task key")
 
 // ErrTaskKeyNotFount is an error when task key is not found
-var ErrTaskKeyNotFount = errors.New("task key doesn't existed in task list, please check your input")
+var ErrTaskKeyNotFount = errors.New("task key doesn'event-mode existed in task list, please check your input")
 
 // CreateTimeWheel 用来实现TimeWheel的单例模式
 func CreateTimeWheel(interval time.Duration, slotNums int, job Job) *TimeWheel {
@@ -209,7 +209,7 @@ func (tw *TimeWheel) checkAndRunTask() {
 			} else if tw.job != nil {
 				go tw.job(task.TaskName)
 			} else {
-				fmt.Println(fmt.Sprintf("The task %v don't have job to run", task.TaskName))
+				fmt.Println(fmt.Sprintf("The task %v don'event-mode have job to run", task.TaskName))
 			}
 
 			// 执行完成以后，将该任务从时间轮盘删除
