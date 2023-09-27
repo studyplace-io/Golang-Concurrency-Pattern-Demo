@@ -2,7 +2,7 @@ package kube_controller_mode
 
 import (
 	"fmt"
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/gorountine-other-mode/group"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/gorountine-other-mode/group"
 )
 
 // Controller 控制器

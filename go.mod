@@ -1,4 +1,4 @@
-module golanglearning/new_project/Golang-Concurrency-Pattern-Demo
+module github.com/practice/Golang-Concurrency-Pattern-Demo
 
 go 1.18
 

@@ -3,10 +3,10 @@ package app
 import (
 	"context"
 	"fmt"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/kube-controller-manager-mode/app/config"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/kube-controller-manager-mode/app/options"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/kube-controller-manager-mode/app/config"
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/kube-controller-manager-mode/app/options"
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/component-base/version/verflag"
 	"k8s.io/klog/v2"
@@ -59,8 +59,6 @@ controller, and serviceaccounts controller.`,
 	fs := cmd.Flags()
 	fs.AddFlagSet(flags)
 
-
-
 	return cmd
 }
 
@@ -72,7 +70,6 @@ type Interface interface {
 type InitFunc func(ctx context.Context) (controller Interface, enabled bool, err error)
 
 type ControllerInitializersFunc func() (initializers map[string]InitFunc)
-
 
 // Run runs the KubeControllerManagerOptions.
 func Run(c *config.CompletedConfig, stopCh <-chan struct{}) error {
@@ -87,12 +84,10 @@ func Run(c *config.CompletedConfig, stopCh <-chan struct{}) error {
 			klog.Fatalf("error starting controllers: %v", err)
 		}
 
-
 		<-ctx.Done()
 	}
 	ctx, _ := wait.ContextForChannel(stopCh)
 	run(ctx, NewControllerInitializers)
-
 
 	<-stopCh
 	return nil

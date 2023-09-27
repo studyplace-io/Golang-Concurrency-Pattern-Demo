@@ -3,8 +3,8 @@ package task_job_mode
 import (
 	"encoding/json"
 	"github.com/google/uuid"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/task-job-mode/model"
 	. "github.com/smartystreets/goconvey/convey"
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/task-job-mode/model"
 	"log"
 	"strconv"
 	"sync"

@@ -1,7 +1,7 @@
 package broadcaster
 
 import (
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/event-mode/event"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/event-mode/event"
 )
 
 // Interface 接口 watcher 实现

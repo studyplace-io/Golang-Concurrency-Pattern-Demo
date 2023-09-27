@@ -1,7 +1,7 @@
 package event_broadcaster
 
 import (
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/event-mode/event"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/event-mode/event"
 	"testing"
 	"time"
 )
@@ -24,7 +24,6 @@ func TestEventBroadcaster(t *testing.T) {
 	eventBroadcast.Event(event.Normal, "test", "main-goroutine")
 	eventBroadcast.EventBySource(event.Normal, "test", "main-goroutine", "api-server")
 
-
-	<-time.After(time.Second* 20)
+	<-time.After(time.Second * 20)
 	eventBroadcast.Stop()
 }

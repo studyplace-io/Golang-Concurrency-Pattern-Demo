@@ -1,6 +1,6 @@
 package scheduler_with_plugins
 
-import _interface "golanglearning/new_project/Golang-Concurrency-Pattern-Demo/scheduler-mode/scheduler-with-plugins/interface"
+import _interface "github.com/practice/Golang-Concurrency-Pattern-Demo/scheduler-mode/scheduler-with-plugins/interface"
 
 // Queue 调度队列
 type Queue struct {

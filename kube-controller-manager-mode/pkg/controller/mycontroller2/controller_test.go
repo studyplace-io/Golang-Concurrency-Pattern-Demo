@@ -10,9 +10,9 @@ import (
 
 func TestController(t *testing.T) {
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second * 10)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer cancel()
-	controller, _ := NewController(WithContext(ctx), WithWorkers(5))
+	controller, _ := NewController(WithContext(ctx))
 
 	ch := make(chan interface{}, 10)
 	controller.AddSource(ch)
@@ -24,13 +24,12 @@ func TestController(t *testing.T) {
 		}
 	}()
 
-
 	controller.AddHandler(ResourceHandlerFunc{
 		SetHandlerFunc: func(obj interface{}) {
 			fmt.Println("handler: ", obj)
 		},
 	})
 
-	controller.Run()
+	controller.Run(ctx, DefaultWorkers)
 
 }

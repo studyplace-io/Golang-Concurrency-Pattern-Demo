@@ -1,6 +1,6 @@
 package constants
 
-import "golanglearning/new_project/Golang-Concurrency-Pattern-Demo/task-job-mode/model"
+import "github.com/practice/Golang-Concurrency-Pattern-Demo/task-job-mode/model"
 
 // 状态。目前task、job及plugin共用。
 const (

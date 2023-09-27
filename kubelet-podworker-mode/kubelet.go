@@ -1,7 +1,7 @@
 package main
 
 import (
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/kubelet-podworker-mode/app"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/kubelet-podworker-mode/app"
 	"k8s.io/component-base/cli"
 	"os"
 )

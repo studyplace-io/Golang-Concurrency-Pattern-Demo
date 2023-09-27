@@ -2,7 +2,7 @@ package task_job_mode
 
 import (
 	"container/list"
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/task-job-mode/model"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/task-job-mode/model"
 	"sync"
 )
 

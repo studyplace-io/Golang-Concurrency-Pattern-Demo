@@ -1,7 +1,7 @@
 package broadcaster
 
 import (
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/event-mode/event"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/event-mode/event"
 	"sync"
 )
 
@@ -91,4 +91,3 @@ func (m *Broadcaster) stopWatching(id int64) {
 	delete(m.watchers, id)
 	close(w.result)
 }
-

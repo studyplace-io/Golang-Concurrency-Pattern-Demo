@@ -3,32 +3,27 @@ package options
 import (
 	"flag"
 	"fmt"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/kube-controller-manager-mode/app/config"
 	"github.com/spf13/pflag"
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/kube-controller-manager-mode/app/config"
 	"k8s.io/klog/v2"
 	"os"
 	"strings"
 )
 
 type KubeControllerManagerOptions struct {
-
 }
 
 // NewKubeControllerManagerOptions creates a new KubeControllerManagerOptions with a default config.
 func NewKubeControllerManagerOptions() (*KubeControllerManagerOptions, error) {
 
-	s := KubeControllerManagerOptions{
-
-	}
-
+	s := KubeControllerManagerOptions{}
 
 	return &s, nil
 }
 
 func (s KubeControllerManagerOptions) Config() (*config.Config, error) {
 
-	c := &config.Config{
-	}
+	c := &config.Config{}
 
 	return c, nil
 }

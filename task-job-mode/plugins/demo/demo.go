@@ -2,8 +2,8 @@ package demo
 
 import (
 	"encoding/json"
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/task-job-mode/common/constants"
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/task-job-mode/model"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/task-job-mode/common/constants"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/task-job-mode/model"
 	"log"
 	"strconv"
 	"time"

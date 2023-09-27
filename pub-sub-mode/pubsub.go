@@ -6,9 +6,9 @@ import (
 
 // Topic 主题
 type Topic struct {
-	TopicID   string
-	Source string
-	Message  string
+	TopicID string
+	Source  string
+	Message string
 }
 
 // Broker
@@ -36,7 +36,6 @@ func (b *Broker) Subscribe(topicID string, subscriber *Subscriber) {
 	b.subscribers[topicID] = append(b.subscribers[topicID], subscriber)
 }
 
-//
 func (b *Broker) Unsubscribe(topicID string, subscriber *Subscriber) {
 	b.mu.RLock()
 	defer b.mu.RUnlock()
@@ -68,7 +67,7 @@ func (b *Broker) Run() {
 		if !ok {
 			return
 		}
-		for _, sub := range b.subscribers[topic.ID] {
+		for _, sub := range b.subscribers[topic.TopicID] {
 			sub.Receive(topic)
 		}
 	}
@@ -111,7 +110,7 @@ func (s *Subscriber) Receive(topic Topic) {
 
 func (s *Subscriber) Consume() {
 	for topic := range s.buf {
-		consume, ok := s.topics[topic.ID]
+		consume, ok := s.topics[topic.TopicID]
 		if !ok {
 			continue
 		}
@@ -139,6 +138,6 @@ func NewPublisher(name string, broker *Broker) *Publisher {
 }
 
 func (p *Publisher) Publish(topic Topic) {
-	topic.From = p.name
+	topic.Source = p.name
 	p.broker.Publish(topic)
 }

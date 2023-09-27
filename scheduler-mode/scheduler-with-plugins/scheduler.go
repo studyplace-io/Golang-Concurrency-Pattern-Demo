@@ -1,8 +1,8 @@
 package scheduler_with_plugins
 
 import (
-	_interface "golanglearning/new_project/Golang-Concurrency-Pattern-Demo/scheduler-mode/scheduler-with-plugins/interface"
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/scheduler-mode/scheduler-with-plugins/nodes"
+	_interface "github.com/practice/Golang-Concurrency-Pattern-Demo/scheduler-mode/scheduler-with-plugins/interface"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/scheduler-mode/scheduler-with-plugins/nodes"
 	"k8s.io/klog/v2"
 	"sync"
 )

@@ -1,7 +1,7 @@
 package demo
 
 import (
-	_interface "golanglearning/new_project/Golang-Concurrency-Pattern-Demo/scheduler-mode/scheduler-with-plugins/interface"
+	_interface "github.com/practice/Golang-Concurrency-Pattern-Demo/scheduler-mode/scheduler-with-plugins/interface"
 	"k8s.io/klog/v2"
 )
 

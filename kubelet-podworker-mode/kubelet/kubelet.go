@@ -2,7 +2,7 @@ package kubelet
 
 import (
 	"context"
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/kubelet-podworker-mode/kubelet/config"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/kubelet-podworker-mode/kubelet/config"
 	"k8s.io/klog/v2"
 	"time"
 )

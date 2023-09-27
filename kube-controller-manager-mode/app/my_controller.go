@@ -3,8 +3,8 @@ package app
 import (
 	"context"
 	"fmt"
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/kube-controller-manager-mode/pkg/controller/mycontroller1"
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/kube-controller-manager-mode/pkg/controller/mycontroller2"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/kube-controller-manager-mode/pkg/controller/mycontroller1"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/kube-controller-manager-mode/pkg/controller/mycontroller2"
 	"k8s.io/klog/v2"
 )
 

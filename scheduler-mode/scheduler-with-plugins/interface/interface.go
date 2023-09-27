@@ -1,6 +1,6 @@
 package _interface
 
-import "golanglearning/new_project/Golang-Concurrency-Pattern-Demo/scheduler-mode/scheduler-with-plugins/nodes"
+import "github.com/practice/Golang-Concurrency-Pattern-Demo/scheduler-mode/scheduler-with-plugins/nodes"
 
 // Pod 接口
 type Pod interface {

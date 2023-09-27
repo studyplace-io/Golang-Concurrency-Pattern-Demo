@@ -1,9 +1,9 @@
 package task_job_mode
 
 import (
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/task-job-mode/common/constants"
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/task-job-mode/model"
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/task-job-mode/plugins"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/task-job-mode/common/constants"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/task-job-mode/model"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/task-job-mode/plugins"
 	"log"
 )
 

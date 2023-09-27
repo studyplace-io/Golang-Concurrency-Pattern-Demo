@@ -92,7 +92,7 @@ func Consumer(dataC chan int, wgReceivers *sync.WaitGroup, stopC chan struct{}) 
 			close(stopC)
 			return
 		}
-		fmt.Println("value:", value)
+		//fmt.Println("value:", value)
 	}
 
 }

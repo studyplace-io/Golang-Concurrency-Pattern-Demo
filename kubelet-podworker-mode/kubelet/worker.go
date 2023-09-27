@@ -3,7 +3,7 @@ package kubelet
 import (
 	"context"
 	"errors"
-	container2 "golanglearning/new_project/Golang-Concurrency-Pattern-Demo/kubelet-podworker-mode/kubelet/container"
+	container2 "github.com/practice/Golang-Concurrency-Pattern-Demo/kubelet-podworker-mode/kubelet/container"
 	"k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/klog/v2"
 	"sync"

@@ -2,17 +2,17 @@ package event_broadcaster
 
 import (
 	"fmt"
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/event-mode/broadcaster"
-	"golanglearning/new_project/Golang-Concurrency-Pattern-Demo/event-mode/event"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/event-mode/broadcaster"
+	"github.com/practice/Golang-Concurrency-Pattern-Demo/event-mode/event"
 	"time"
 )
 
 // EventBroadcaster 事件广播器接口
 type EventBroadcaster interface {
 	// Event 发送事件给存储在广播器中的watcher对象
-	Event(eType event.EventType , reason, message string)
+	Event(eType event.EventType, reason, message string)
 	// EventBySource 增加事件源对象
-	EventBySource(eType event.EventType , reason, message, source string)
+	EventBySource(eType event.EventType, reason, message, source string)
 	// Start 启动事件广播器
 	Start()
 	// Stop 停止事件广播器
@@ -23,7 +23,7 @@ type EventBroadcaster interface {
 type eventBroadcasterImpl struct {
 	// broadcaster 使用一个广播器实现
 	*broadcaster.Broadcaster
-	stopC    chan struct{}
+	stopC chan struct{}
 }
 
 // watcher queue
@@ -47,7 +47,7 @@ func (eventBroadcaster *eventBroadcasterImpl) Event(eType event.EventType, reaso
 }
 
 // Event 生成 event
-func (eventBroadcaster *eventBroadcasterImpl) EventBySource(eType event.EventType , reason, message, source string) {
+func (eventBroadcaster *eventBroadcasterImpl) EventBySource(eType event.EventType, reason, message, source string) {
 	events := &event.Event{Type: eType, Reason: reason, Message: message, Source: source, Timestamp: time.Now()}
 	// 发送事件
 	eventBroadcaster.Action(events)
