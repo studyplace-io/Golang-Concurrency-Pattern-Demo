@@ -1,4 +1,4 @@
-package workqueue_mode
+package workqueue
 
 import (
 	"k8s.io/klog/v2"
@@ -9,7 +9,7 @@ import (
 
 func TestQueue(t *testing.T) {
 
-	q := newQueue()
+	q := NewQueue()
 	// Start producers
 	const producers = 50
 	producerWG := sync.WaitGroup{}
@@ -57,7 +57,7 @@ func TestQueue(t *testing.T) {
 }
 
 func TestAddWhileProcessing(t *testing.T) {
-	q := newQueue()
+	q := NewQueue()
 
 	// Start producers
 	const producers = 50

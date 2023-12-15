@@ -9,10 +9,10 @@ import (
 
 func TestEventProcessor(t *testing.T) {
 	out := make(chan Event, 20)
-	e := newEventProcessor(out)
+	e := NewEventProcessor(out)
 	doneC := make(chan struct{})
 
-	e.run()
+	e.Run()
 
 	wg := sync.WaitGroup{}
 
@@ -53,12 +53,12 @@ func TestEventProcessor(t *testing.T) {
 				time.Sleep(time.Second)
 			}
 			// 推送事件
-			e.push(event)
+			e.Push(event)
 		}(i)
 	}
 
 	wg.Wait()
-	e.stop()
+	e.Stop()
 	close(doneC)
 
 }

@@ -1,4 +1,4 @@
-package workqueue_mode
+package workqueue
 
 import (
 	"sync"
@@ -21,7 +21,7 @@ type Interface interface {
 // obj 放入队列的对象
 type obj interface{}
 
-type queue struct {
+type Queue struct {
 	// queue 存储对象的对列
 	queue []obj
 	// dirty set 用来去重，避免同个对象被重复加入多次
@@ -62,8 +62,8 @@ func (c CallbackFunc) OnGet() {
 	}
 }
 
-func newQueue() *queue {
-	t := &queue{
+func NewQueue() Interface {
+	t := &Queue{
 		queue:      make([]obj, 0),
 		dirty:      set{},
 		processing: set{},
@@ -89,7 +89,7 @@ func (s set) delete(item obj) {
 }
 
 // Add 加入工作队列
-func (q *queue) Add(item interface{}) {
+func (q *Queue) Add(item interface{}) {
 	q.cond.L.Lock()
 	defer q.cond.L.Unlock()
 	// 如果关闭，就直接返回
@@ -118,14 +118,14 @@ func (q *queue) Add(item interface{}) {
 	q.cond.Signal()
 }
 
-func (q *queue) Len() int {
+func (q *Queue) Len() int {
 	q.cond.L.Lock()
 	defer q.cond.L.Unlock()
 	return len(q.queue)
 }
 
-// Get 从工作队列获取
-func (q *queue) Get() (item interface{}, shutdown bool) {
+// Get 从工作队列获取, 返回 item 队列元素, shutdown 为是否已经关闭
+func (q *Queue) Get() (item interface{}, shutdown bool) {
 	q.cond.L.Lock()
 	defer q.cond.L.Unlock()
 	// 如果队列中没有，等待
@@ -153,7 +153,7 @@ func (q *queue) Get() (item interface{}, shutdown bool) {
 }
 
 // Done 当处理完后，需要调用
-func (q *queue) Done(item interface{}) {
+func (q *Queue) Done(item interface{}) {
 	q.cond.L.Lock()
 	defer q.cond.L.Unlock()
 
@@ -166,18 +166,18 @@ func (q *queue) Done(item interface{}) {
 	}
 }
 
-func (q *queue) SetCallback(handler CallbackHandler) {
+func (q *Queue) SetCallback(handler CallbackHandler) {
 	q.callbacks = handler
 }
 
-func (q *queue) ShutDown() {
+func (q *Queue) ShutDown() {
 	q.cond.L.Lock()
 	defer q.cond.L.Unlock()
 	q.close = true
 	q.cond.Broadcast()
 }
 
-func (q *queue) IsShutDown() bool {
+func (q *Queue) IsShutDown() bool {
 	q.cond.L.Lock()
 	defer q.cond.L.Unlock()
 	return q.close

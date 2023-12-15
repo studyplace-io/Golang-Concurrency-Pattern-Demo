@@ -23,7 +23,7 @@ type Event struct {
 	Obj interface{}
 }
 
-func newEventProcessor(out chan<- Event) *eventProcessor {
+func NewEventProcessor(out chan<- Event) EventProcessor {
 	return &eventProcessor{
 		out:  out,
 		cond: sync.NewCond(&sync.Mutex{}),
@@ -32,11 +32,9 @@ func newEventProcessor(out chan<- Event) *eventProcessor {
 }
 
 type EventProcessor interface {
-	run()
-	takeBatch() []Event
-	writeBatch(events []Event)
-	push(event Event)
-	stop()
+	Run()
+	Push(event Event)
+	Stop()
 }
 
 // eventProcessor 事件通知器
@@ -51,8 +49,8 @@ type eventProcessor struct {
 	done chan struct{}
 }
 
-// run 执行
-func (e *eventProcessor) run() {
+// Run 执行
+func (e *eventProcessor) Run() {
 	go func() {
 		for {
 			// 取出一定批量的消息
@@ -82,7 +80,7 @@ func (e *eventProcessor) takeBatch() []Event {
 	return batch
 }
 
-// writeBatch 把一批消息写入chan
+// writeBatch 把一批消息写入 chan
 func (e *eventProcessor) writeBatch(events []Event) {
 	for _, event := range events {
 		select {
@@ -93,8 +91,8 @@ func (e *eventProcessor) writeBatch(events []Event) {
 	}
 }
 
-// push 放入消息
-func (e *eventProcessor) push(event Event) {
+// Push 放入消息
+func (e *eventProcessor) Push(event Event) {
 	e.cond.L.Lock()
 	defer e.cond.L.Unlock()
 	defer e.cond.Signal()
@@ -111,7 +109,7 @@ func (e *eventProcessor) stopped() bool {
 	}
 }
 
-func (e *eventProcessor) stop() {
+func (e *eventProcessor) Stop() {
 	// 停止前，先检查buff中是否还有数据。
 	for len(e.buff) != 0 {
 		time.Sleep(time.Millisecond)

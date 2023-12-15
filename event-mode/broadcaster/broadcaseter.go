@@ -42,7 +42,7 @@ func (m *Broadcaster) Watch() Interface {
 	return watcher
 }
 
-// Broadcaster 接收所产生的 events
+// Action 接收所产生的 events
 func (m *Broadcaster) Action(event *event.Event) {
 	m.incoming <- *event
 }

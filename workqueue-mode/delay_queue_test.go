@@ -1,4 +1,4 @@
-package workqueue_mode
+package workqueue
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 
 func TestSimpleQueue(t *testing.T) {
 
-	q := newDelayingQueue(newQueue())
+	q := NewDelayingQueue(NewQueue())
 	// 加入回调方法
 	q.SetCallback(CallbackFunc{
 		AddFunc: func() {

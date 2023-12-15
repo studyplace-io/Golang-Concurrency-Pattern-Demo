@@ -1,4 +1,4 @@
-package workqueue_mode
+package workqueue
 
 import (
 	"golang.org/x/time/rate"
@@ -25,7 +25,7 @@ func (q *rateLimitingQueue) Close() {
 
 func NewRateLimitingQueue(opts RateLimitingQueueOption) RateLimiterQueue {
 	return &rateLimitingQueue{
-		DelayQueue:  newDelayingQueue(newQueue()),
+		DelayQueue:  NewDelayingQueue(NewQueue()),
 		rateLimiter: newBucketRateLimiter(opts.rate, opts.buckets),
 	}
 }

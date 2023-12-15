@@ -17,7 +17,7 @@ type broadcasterWatcher struct {
 	id      int64
 }
 
-// 每个 watcher 通过该方法读取 channel 中广播的 events
+// ResultChan 每个 watcher 通过该方法读取 channel 中广播的 events
 func (b *broadcasterWatcher) ResultChan() <-chan event.Event {
 	select {
 	case <-b.stopped:

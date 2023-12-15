@@ -29,17 +29,17 @@ func CreatData(num int) []*User {
 	return out
 }
 
-// Handler 类似协程池的思路，固定启动num个goroutine来处理业务(同时读取chan的数据)
+// Handler 类似协程池的思路，固定启动 num 个 goroutine 来处理业务(同时读取 chan 的数据)
 func Handler(num int, wg *sync.WaitGroup, s []*User, workerFun func(*User)) {
 	inch := make(chan *User, 0)
-	// 协程1：把需要处理的参数写入inch
+	// 协程1：把需要处理的参数写入 inch
 	go func() {
 		for _, item := range s {
 			inch <- item
 		}
 		close(inch) // 全部传入就关闭
 	}()
-	// 协程2：开启num个协程，同时从inch chan中拿数据
+	// 协程2：开启 num 个协程，同时从 inch chan 中拿数据
 	for i := 0; i < num; i++ {
 		go func() {
 			defer wg.Done()
@@ -50,7 +50,7 @@ func Handler(num int, wg *sync.WaitGroup, s []*User, workerFun func(*User)) {
 	}
 }
 
-// TestOne 不限制goroutine数量，容易会有数量问题
+// TestOne 不限制 goroutine 数量，容易会有数量问题
 func TestOne(test *testing.T) {
 	s := CreatData(100)
 	var wg sync.WaitGroup
@@ -99,14 +99,14 @@ func DoData(user *User) *Receipt {
 
 func HandlerWithReceipt(number int, wg *sync.WaitGroup, s []*User, resCh chan<- *Receipt, workerFun func(*User) *Receipt) {
 	inch := make(chan *User, 0)
-	//协程1：把需要处理的参数写入inch
+	// 协程1：把需要处理的参数写入inch
 	go func() {
 		for _, item := range s {
 			inch <- item
 		}
 		close(inch)
 	}()
-	//协程2：开启number个协程，同时读取参数并把结果写入resCh
+	// 协程2：开启number个协程，同时读取参数并把结果写入resCh
 	for i := 0; i < number; i++ {
 		go func() {
 			defer wg.Done()

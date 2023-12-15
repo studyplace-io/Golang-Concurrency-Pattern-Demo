@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-// RunForeverWithTime 永远执行fn 直到times次数停止
+// RunForeverWithTime 永远执行 fn 直到 times 次数停止
 func RunForeverWithTime(interval time.Duration, fn runFn, times int) {
 
 	i := 0
@@ -36,7 +36,7 @@ func RunForeverWithTime(interval time.Duration, fn runFn, times int) {
 	}
 }
 
-// RunWithChannel 执行fn，当外部关闭stopC chan会退出 直到times次数停止
+// RunWithTimeWithChannel 执行 fn，当外部关闭 stopC chan 会退出 直到 times 次数停止
 func RunWithTimeWithChannel(interval time.Duration, fn runFn, stopC chan struct{}, times int) {
 
 	i := 0
@@ -69,7 +69,7 @@ func RunWithTimeWithChannel(interval time.Duration, fn runFn, stopC chan struct{
 	}
 }
 
-// RunWithTimeWithContext 调用fn，外部传入的ctx能够自由关闭 直到times次数停止
+// RunWithTimeWithContext 调用 fn，外部传入的 ctx 能够自由关闭 直到 times 次数停止
 func RunWithTimeWithContext(interval time.Duration, fn runFn, ctx context.Context, times int) {
 	i := 0
 	timer := time.NewTimer(interval)

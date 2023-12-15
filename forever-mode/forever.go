@@ -7,7 +7,7 @@ import (
 
 type runFn func() error
 
-// RunForever 永远执行fn
+// RunForever 永远执行 fn
 func RunForever(interval time.Duration, fn runFn) {
 
 	timer := time.NewTimer(interval)
@@ -31,7 +31,7 @@ func RunForever(interval time.Duration, fn runFn) {
 	}
 }
 
-// RunWithChannel 执行fn，当外部关闭stopC chan会退出
+// RunWithChannel 执行 fn，当外部关闭 stopC chan 会退出
 func RunWithChannel(interval time.Duration, fn runFn, stopC chan struct{}) {
 
 	timer := time.NewTimer(interval)
@@ -56,7 +56,7 @@ func RunWithChannel(interval time.Duration, fn runFn, stopC chan struct{}) {
 	}
 }
 
-// RunWithContext 调用fn，外部传入的ctx能够自由关闭
+// RunWithContext 调用 fn，外部传入的 ctx 能够自由关闭
 func RunWithContext(interval time.Duration, fn runFn, ctx context.Context) {
 
 	timer := time.NewTimer(interval)

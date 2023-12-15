@@ -34,5 +34,4 @@ func square(inputC <-chan int) <-chan int {
 		}
 	}()
 	return out
-
 }

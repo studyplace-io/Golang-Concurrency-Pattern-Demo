@@ -46,7 +46,7 @@ func (eventBroadcaster *eventBroadcasterImpl) Event(eType event.EventType, reaso
 	eventBroadcaster.Action(events)
 }
 
-// Event 生成 event
+// EventBySource 生成 event
 func (eventBroadcaster *eventBroadcasterImpl) EventBySource(eType event.EventType, reason, message, source string) {
 	events := &event.Event{Type: eType, Reason: reason, Message: message, Source: source, Timestamp: time.Now()}
 	// 发送事件

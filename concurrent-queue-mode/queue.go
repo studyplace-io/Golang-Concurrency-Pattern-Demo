@@ -2,7 +2,7 @@ package concurrent_queue_mode
 
 import "errors"
 
-// Queue 队列对象，底层使用chan实现
+// queue 队列对象，底层使用chan实现
 type queue struct {
 	// datas 存储chan
 	datas chan interface{}
@@ -12,7 +12,7 @@ type queue struct {
 	maxSize uint32
 }
 
-// put 放入队列
+// Put 放入队列
 func (queue *queue) Put(data interface{}) error {
 	// 1. 检查是否超过最大容量
 	if queue.size >= queue.maxSize {
@@ -24,11 +24,11 @@ func (queue *queue) Put(data interface{}) error {
 	return nil
 }
 
-// pop 弹出队列
+// Pop 弹出队列
 func (queue *queue) Pop() (interface{}, error) {
 	// 如果容量为0
 	if queue.size == 0 {
-		return nil, errors.New("Queue empty")
+		return nil, errors.New("queue empty")
 	}
 	queue.size--
 	return <-queue.datas, nil

@@ -1,4 +1,4 @@
-package workqueue_mode
+package workqueue
 
 import (
 	"container/heap"
@@ -36,7 +36,7 @@ type delayingQueue struct {
 // 心跳的时长
 const maxWait = 10 * time.Second
 
-func newDelayingQueue(q Interface) DelayQueue {
+func NewDelayingQueue(q Interface) DelayQueue {
 	ret := &delayingQueue{
 		Interface:     q,
 		heartbeat:     time.NewTicker(maxWait),
