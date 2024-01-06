@@ -1,8 +1,8 @@
 package kubelet
 
 import (
-	"github.com/practice/Golang-Concurrency-Pattern-Demo/kubelet-podworker-mode/kubelet/config"
-	"github.com/practice/Golang-Concurrency-Pattern-Demo/kubelet-podworker-mode/kubelet/container"
+	"github.com/study-io/Golang-Concurrency-Pattern-Demo/kubelet-podworker-mode/kubelet/config"
+	"github.com/study-io/Golang-Concurrency-Pattern-Demo/kubelet-podworker-mode/kubelet/container"
 	"testing"
 	"time"
 )

@@ -1,0 +1,51 @@
+name: MyTask
+# 填入任务类型 区分为 serial(串行) parallel(并行) command(命令) 形式
+type: parallel            # 代表子任务使用并行执行
+# 填入子任务模版
+children:
+  - name: Task 1
+    type: parallel
+    children:
+      - name: Subtask 1
+        type: command     # 代表该任务是真正执行的任务本身
+        commands:         # bash 命令
+          - echo "Running Subtask 1"
+      - name: Subtask 2
+        type: command
+        on_failure: stop  # 定义任务失败的处理逻辑，支持 1.skip 跳过 2.stop 停止任务 3.retry 重试 4.执行 bash 命令等
+        commands:
+          - echo "Running Subtask 2"
+          - exit 0
+  - name: Task 2
+    type: parallel
+    children:
+      - name: Subtask 3
+        type: parallel
+        children:
+          - name: Subtask children 3-1
+            type: command
+            commands:
+              - sleep 10 && echo "Running Subtask children 3-1"
+              - exit 0
+          - name: Subtask children 3-2
+            type: command
+            on_failure: retry
+            commands:
+              - sleep 10 && echo "Running Subtask children 3-2"
+      - name: Subtask 4
+        type: command
+        on_failure: skip
+        commands:
+          - echo "Running Subtask 4"
+          - exit 0
+  - name: Task 3
+    type: serial
+    children:
+      - name: Subtask 5
+        type: command
+        commands:
+          - echo "Running Subtask 5"
+      - name: Subtask 6
+        type: command
+        commands:
+          -  sleep 10 && echo "Running Subtask 6"

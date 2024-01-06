@@ -1,8 +1,8 @@
 package demo
 
 import (
-	_interface "github.com/practice/Golang-Concurrency-Pattern-Demo/scheduler-mode/scheduler-with-plugins/interface"
-	"github.com/practice/Golang-Concurrency-Pattern-Demo/scheduler-mode/scheduler-with-plugins/nodes"
+	_interface "github.com/study-io/Golang-Concurrency-Pattern-Demo/scheduler-mode/scheduler-with-plugins/interface"
+	"github.com/study-io/Golang-Concurrency-Pattern-Demo/scheduler-mode/scheduler-with-plugins/nodes"
 	"math/rand"
 )
 

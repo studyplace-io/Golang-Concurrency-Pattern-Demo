@@ -3,8 +3,8 @@ package options
 import (
 	"flag"
 	"fmt"
-	"github.com/practice/Golang-Concurrency-Pattern-Demo/kube-controller-manager-mode/app/config"
 	"github.com/spf13/pflag"
+	"github.com/study-io/Golang-Concurrency-Pattern-Demo/kube-controller-manager-mode/app/config"
 	"k8s.io/klog/v2"
 	"os"
 	"strings"

@@ -50,3 +50,5 @@ Concurrency modes that I usually learn (the mode classification is mainly based 
 22. event mode [code example](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/event-mode)
 
 23. worker-job mode [code example](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/worker-job-mode)
+
+24. tree-template-engine mode [code example](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/tree-template-engine)

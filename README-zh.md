@@ -49,3 +49,5 @@
 22. event模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/event-mode)
 
 23. worker-job模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/worker-job-mode)
+
+24. tree-template-engine模式 [代码示例](https://github.com/StudyPlace-io/Golang-Concurrency-Pattern-Demo/tree/main/tree-template-engine)

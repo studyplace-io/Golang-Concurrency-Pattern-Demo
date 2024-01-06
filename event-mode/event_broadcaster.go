@@ -2,8 +2,8 @@ package event_broadcaster
 
 import (
 	"fmt"
-	"github.com/practice/Golang-Concurrency-Pattern-Demo/event-mode/broadcaster"
-	"github.com/practice/Golang-Concurrency-Pattern-Demo/event-mode/event"
+	"github.com/study-io/Golang-Concurrency-Pattern-Demo/event-mode/broadcaster"
+	"github.com/study-io/Golang-Concurrency-Pattern-Demo/event-mode/event"
 	"time"
 )
 

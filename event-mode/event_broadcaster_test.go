@@ -1,7 +1,7 @@
 package event_broadcaster
 
 import (
-	"github.com/practice/Golang-Concurrency-Pattern-Demo/event-mode/event"
+	"github.com/study-io/Golang-Concurrency-Pattern-Demo/event-mode/event"
 	"testing"
 	"time"
 )

@@ -1,12 +1,12 @@
-module github.com/practice/Golang-Concurrency-Pattern-Demo
+module github.com/study-io/Golang-Concurrency-Pattern-Demo
 
 go 1.18
 
 require (
 	github.com/antlabs/timer v0.0.10
+	github.com/ghodss/yaml v1.0.0
 	github.com/google/uuid v1.3.0
 	github.com/robfig/cron/v3 v3.0.1
-	github.com/sirupsen/logrus v1.8.1
 	github.com/smartystreets/goconvey v1.8.0
 	github.com/spf13/cobra v1.2.1
 	github.com/spf13/pflag v1.0.5

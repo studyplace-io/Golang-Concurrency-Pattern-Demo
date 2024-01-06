@@ -1,8 +1,8 @@
 package plugins
 
 import (
-	"github.com/practice/Golang-Concurrency-Pattern-Demo/task-job-mode/model"
-	"github.com/practice/Golang-Concurrency-Pattern-Demo/task-job-mode/plugins/demo"
+	"github.com/study-io/Golang-Concurrency-Pattern-Demo/task-job-mode/model"
+	"github.com/study-io/Golang-Concurrency-Pattern-Demo/task-job-mode/plugins/demo"
 )
 
 func init() {

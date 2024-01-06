@@ -1,7 +1,7 @@
 package kubelet
 
 import (
-	"github.com/practice/Golang-Concurrency-Pattern-Demo/kubelet-podworker-mode/kubelet/container"
+	"github.com/study-io/Golang-Concurrency-Pattern-Demo/kubelet-podworker-mode/kubelet/container"
 )
 
 // Pod 模拟Pod对象

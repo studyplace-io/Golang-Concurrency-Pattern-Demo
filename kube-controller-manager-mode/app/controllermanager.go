@@ -3,10 +3,10 @@ package app
 import (
 	"context"
 	"fmt"
-	"github.com/practice/Golang-Concurrency-Pattern-Demo/kube-controller-manager-mode/app/config"
-	"github.com/practice/Golang-Concurrency-Pattern-Demo/kube-controller-manager-mode/app/options"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
+	"github.com/study-io/Golang-Concurrency-Pattern-Demo/kube-controller-manager-mode/app/config"
+	"github.com/study-io/Golang-Concurrency-Pattern-Demo/kube-controller-manager-mode/app/options"
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/component-base/version/verflag"
 	"k8s.io/klog/v2"
